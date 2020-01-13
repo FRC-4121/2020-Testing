@@ -29,7 +29,7 @@ public class RobotMap {
 	public static final int RIGHT_MOTOR_MASTER = 0;
 	public static final int RIGHT_MOTOR_SLAVE_1 = 1;
 	public static final int RIGHT_MOTOR_SLAVE_2 = -1;
-	public static final int BELT_MOTOR = 2;
+	public static final int BELT_MOTOR = 3;
 
 	//Invert direction (for WCD only)
 	public static int DIRECTION_MULTIPLIER = 1;

@@ -204,7 +204,7 @@ public class Robot extends TimedRobot {
      * measurements and make it difficult to accurately determine its color.
      */
     Color detectedColor = m_colorSensor.getColor();
-    System.out.println(detectedColor.toString());
+    //System.out.println(detectedColor.toString());
 
     /**
      * Run the color match algorithm on our detected color
@@ -361,7 +361,7 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
 
     int POVAxis = Robot.oi.rightJoy.getPOV();
-    System.out.println(POVAxis);
+    //System.out.println(POVAxis);
 
   }
 
