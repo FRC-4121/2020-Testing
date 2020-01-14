@@ -7,13 +7,21 @@
 
 package frc.robot;
 
+import static frc.robot.Constants.*;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.*;
+import frc.robot.commands.DriveWithJoysticksCommand;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.RunEndEffectorIn;
+import frc.robot.commands.RunEndEffectorOut;
+import frc.robot.commands.StopEndEffector;
+import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.WestCoastDrivetrain;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -23,28 +31,32 @@ import frc.robot.subsystems.ExampleSubsystem;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final WestCoastDrivetrain drivetrain = new WestCoastDrivetrain();
+  private final EndEffector end = new EndEffector();
+ 
+  private final DriveWithJoysticksCommand joysticksCommand = new DriveWithJoysticksCommand(drivetrain);
+  private final RunEndEffectorIn runEndEffectorIn = new RunEndEffectorIn(end);
+  private final RunEndEffectorOut runEndEffectorOut = new RunEndEffectorOut(end);
+  private final StopEndEffector stopEndEffector = new StopEndEffector(end);
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final Joystick leftJoy;
+  private final Joystick rightJoy;
+  //public final Joystick turretJoy;
 
-  public Joystick leftJoy;
-  public Joystick rightJoy;
-  public Joystick turretJoy;
-
-  public Button button;
+  private JoystickButton inButton;
+  private JoystickButton outButton;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     
+    leftJoy = new Joystick(LEFT_JOY_PORT);
+    rightJoy = new Joystick(RIGHT_JOY_PORT);
+    //turretJoy = new Joystick(2);
 
-
-
-
-    leftJoy = new Joystick(0);
-    rightJoy = new Joystick(1);
-    turretJoy = new Joystick(2);
+    //Set default drivetrain command to DriveWithJoysticks
+    drivetrain.setDefaultCommand(joysticksCommand);
 
 
     // Configure the button bindings
@@ -59,9 +71,14 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     
-    button = new JoystickButton(leftJoy, 0);
+    inButton = new JoystickButton(leftJoy, 1);
+    outButton = new JoystickButton(rightJoy, 1);
 
-    button.whenPressed(m_autoCommand);
+    inButton.whileHeld(runEndEffectorIn);
+    inButton.whenReleased(stopEndEffector);
+
+    outButton.whileHeld(runEndEffectorOut);
+    outButton.whenReleased(stopEndEffector);
 
   }
 
@@ -73,6 +90,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return null;
   }
 }
