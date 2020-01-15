@@ -10,16 +10,19 @@ package frc.robot.subsystems;
 import static frc.robot.Constants.*;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class EndEffector extends SubsystemBase {
  
-  WPI_TalonSRX endEffectorMotor;
+  //WPI_TalonSRX endEffectorMotor;
+  private CANSparkMax endEffectorMotor;
   
   public EndEffector() {
 
-    endEffectorMotor = new WPI_TalonSRX(END_EFFECTOR_MOTOR);
+    endEffectorMotor = new CANSparkMax(END_EFFECTOR_MOTOR, MotorType.kBrushless);
 
   }
 
