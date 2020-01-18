@@ -7,34 +7,35 @@
 
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.*;
+import static frc.robot.Constants.ShooterConstants.*;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 
-public class EndEffector extends SubsystemBase {
- 
-  //WPI_TalonSRX endEffectorMotor;
-  private CANSparkMax endEffectorMotor;
+public class Shooter extends SubsystemBase {
   
-  public EndEffector() {
+  private final WPI_TalonSRX masterShooter = new WPI_TalonSRX(SHOOTER_MASTER);
+  private final WPI_TalonSRX slaveShooter = new WPI_TalonSRX(SHOOTER_SLAVE);
+  
+  public Shooter() {
 
-    endEffectorMotor = new CANSparkMax(END_EFFECTOR_MOTOR, MotorType.kBrushless);
-
-  }
-
-  public void runMotor(double speed){
-
-    //endEffectorMotor.set(speed);
-
+    //initMotors();
 
   }
 
-  private void initMotor(){
+  private void initMotors(){
+
+    //masterShooter.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    //masterShooter.setSensorPhase(true);
 
   }
 
+  public void runShooter(double speed){
+
+    masterShooter.set(speed);
+
+  }
 }

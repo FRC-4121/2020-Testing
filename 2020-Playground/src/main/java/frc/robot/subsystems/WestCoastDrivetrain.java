@@ -18,11 +18,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class WestCoastDrivetrain extends SubsystemBase {
   
   WPI_TalonSRX leftMotorMaster;
-  WPI_TalonSRX leftMotorSlave;
+  WPI_TalonSRX leftMotorSlave1;
+  WPI_TalonSRX leftMotorSlave2;
   SpeedControllerGroup leftMotorGroup;
 
   WPI_TalonSRX rightMotorMaster;
-  WPI_TalonSRX rightMotorSlave;
+  WPI_TalonSRX rightMotorSlave1;
+  WPI_TalonSRX rightMotorSlave2;
   SpeedControllerGroup rightMotorGroup;
 
   // Initialize robot drive train
@@ -40,13 +42,15 @@ public class WestCoastDrivetrain extends SubsystemBase {
 
     //Initialize left side motors
     leftMotorMaster = new WPI_TalonSRX(MASTER_LEFT_MOTOR);
-    leftMotorSlave = new WPI_TalonSRX(SLAVE_LEFT_MOTOR);
-    leftMotorGroup = new SpeedControllerGroup(leftMotorMaster, leftMotorSlave);
+    leftMotorSlave1 = new WPI_TalonSRX(SLAVE1_LEFT_MOTOR);
+    leftMotorSlave2 = new WPI_TalonSRX(SLAVE2_LEFT_MOTOR);
+    leftMotorGroup = new SpeedControllerGroup(leftMotorMaster, leftMotorSlave1, leftMotorSlave2);
   
     //Initialize right side motors
     rightMotorMaster = new WPI_TalonSRX(MASTER_RIGHT_MOTOR);
-    rightMotorSlave = new WPI_TalonSRX(SLAVE_RIGHT_MOTOR);
-    rightMotorGroup = new SpeedControllerGroup(rightMotorMaster, rightMotorSlave);
+    rightMotorSlave1 = new WPI_TalonSRX(SLAVE1_RIGHT_MOTOR);
+    rightMotorSlave2 = new WPI_TalonSRX(SLAVE2_RIGHT_MOTOR);
+    rightMotorGroup = new SpeedControllerGroup(rightMotorMaster, rightMotorSlave1, rightMotorSlave2);
   
     // Initialize robot drive train
     westCoastDrive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
@@ -59,17 +63,13 @@ public class WestCoastDrivetrain extends SubsystemBase {
 
   public void drive(double leftJoyX, double leftJoyY, double rightJoyX, double rightJoyY) {
 
-    if (DIRECTION_MULTIPLIER == 1)
+    if (DIRECTION_MULTIPLIER == 1)  //TODO: Change back to 1
 
       westCoastDrive.tankDrive(leftJoyY * -DIRECTION_MULTIPLIER, rightJoyY * -DIRECTION_MULTIPLIER);
 
     else
 
       westCoastDrive.tankDrive(leftJoyY * -DIRECTION_MULTIPLIER, rightJoyY * -DIRECTION_MULTIPLIER);
-    
-    westCoastDrive.setSafetyEnabled(false);
-
-    westCoastDrive.setMaxOutput(0.8);
     
   }
  

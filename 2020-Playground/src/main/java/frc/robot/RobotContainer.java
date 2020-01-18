@@ -18,9 +18,11 @@ import frc.robot.commands.DriveWithJoysticksCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.RunEndEffectorIn;
 import frc.robot.commands.RunEndEffectorOut;
+import frc.robot.commands.ShootWithJoysticksCommand;
 import frc.robot.commands.StopEndEffector;
 import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.WestCoastDrivetrain;
 
 /*
@@ -33,8 +35,10 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final WestCoastDrivetrain drivetrain = new WestCoastDrivetrain();
   private final EndEffector end = new EndEffector();
+  private final Shooter shooter = new Shooter();
  
   private final DriveWithJoysticksCommand joysticksCommand = new DriveWithJoysticksCommand(drivetrain);
+  private final ShootWithJoysticksCommand shootCommand = new ShootWithJoysticksCommand(shooter);
   private final RunEndEffectorIn runEndEffectorIn = new RunEndEffectorIn(end);
   private final RunEndEffectorOut runEndEffectorOut = new RunEndEffectorOut(end);
   private final StopEndEffector stopEndEffector = new StopEndEffector(end);
@@ -57,6 +61,7 @@ public class RobotContainer {
 
     //Set default drivetrain command to DriveWithJoysticks
     drivetrain.setDefaultCommand(joysticksCommand);
+    shooter.setDefaultCommand(shootCommand);
 
 
     // Configure the button bindings
