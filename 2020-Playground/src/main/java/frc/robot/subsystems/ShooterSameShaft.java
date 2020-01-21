@@ -9,41 +9,47 @@ package frc.robot.subsystems;
 
 import static frc.robot.Constants.ShooterConstants.*;
 
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.RobotContainer;
 
-public class Shooter extends SubsystemBase {
+public class ShooterSameShaft extends SubsystemBase {
   
-  private final WPI_TalonSRX masterShooter = new WPI_TalonSRX(SHOOTER_MASTER);
-  //private final WPI_TalonSRX slaveShooter = new WPI_TalonSRX(SHOOTER_SLAVE);
+  private final CANSparkMax shooter1 = new CANSparkMax(SHOOTER_MASTER, MotorType.kBrushless);
+  private final CANSparkMax shooter2 = new CANSparkMax(SHOOTER_SLAVE, MotorType.kBrushless);
+ 
+  private final CANPIDController shooter1PID = shooter1.getPIDController();
+  
+  private final CANEncoder shooter1Encoder = shooter1.getEncoder();
 
-  public Shooter() {
+  public ShooterSameShaft() {
 
-    //initMotors();
+    shooter2.follow(shooter1, true);
 
   }
 
-  private void initMotors(){
-
-    //masterShooter.configSelectedFeedbackSensor(FeedbackDevice.CTMagEncoder_Relative);
-    //masterShooter.setSensorPhase(true);
-
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
   }
 
   public void runShooter(double speed){
 
+    shooter1PID.setP(5e-5);
+    shooter1PID.setI(1e-6);
+    shooter1PID.setD(0);
+    shooter1PID.setOutputRange(-1, 1);
+    
+    double setPoint = speed*6000;
+
+    shooter1PID.setReference(setPoint, ControlType.kVelocity);
+
     //masterShooter.set(speed);
-    masterShooter.set(speed);
     //slaveShooter.set(-speed); //inverted because we are attempting to put two motors on one shaft.
-    SmartDashboard.putNumber("Motor Current", masterShooter.getSupplyCurrent());
-    SmartDashboard.putNumber("Motor Speed", masterShooter.get());
+
   }
 }

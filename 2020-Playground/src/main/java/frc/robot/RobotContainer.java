@@ -23,6 +23,7 @@ import frc.robot.commands.StopEndEffector;
 import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterSameShaft;
 import frc.robot.subsystems.WestCoastDrivetrain;
 
 /*
@@ -35,8 +36,9 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final WestCoastDrivetrain drivetrain = new WestCoastDrivetrain();
   private final EndEffector end = new EndEffector();
-  private final Shooter shooter = new Shooter();
- 
+  //private final Shooter shooter = new Shooter();
+  private final ShooterSameShaft shooter = new ShooterSameShaft();
+
   private final DriveWithJoysticksCommand joysticksCommand = new DriveWithJoysticksCommand(drivetrain);
   private final ShootWithJoysticksCommand shootCommand = new ShootWithJoysticksCommand(shooter);
   private final RunEndEffectorIn runEndEffectorIn = new RunEndEffectorIn(end);

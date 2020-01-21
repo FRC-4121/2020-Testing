@@ -22,7 +22,7 @@ public class EndEffector extends SubsystemBase {
   
   public EndEffector() {
 
-    endEffectorMotor = new CANSparkMax(END_EFFECTOR_MOTOR, MotorType.kBrushless);
+    //endEffectorMotor = new CANSparkMax(END_EFFECTOR_MOTOR, MotorType.kBrushless);
 
   }
 

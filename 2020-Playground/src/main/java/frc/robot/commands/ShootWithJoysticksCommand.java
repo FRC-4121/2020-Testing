@@ -10,17 +10,19 @@ package frc.robot.commands;
 import static frc.robot.Constants.*;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterSameShaft;
 
 public class ShootWithJoysticksCommand extends CommandBase {
   
-  private final Shooter shooter;
-
+  //private final Shooter shooter;
+  private final ShooterSameShaft shooter;
   private final Joystick leftJoy = new Joystick(LEFT_JOY_PORT);
   private final Joystick rightJoy = new Joystick(RIGHT_JOY_PORT);
   
-  public ShootWithJoysticksCommand(Shooter shoot) {
+  public ShootWithJoysticksCommand(ShooterSameShaft shoot) {
 
     shooter = shoot;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -36,7 +38,8 @@ public class ShootWithJoysticksCommand extends CommandBase {
   @Override
   public void execute() {
 
-    shooter.runShooter(rightJoy.getY());
+    shooter.runShooter(-rightJoy.getY());
+
   }
 
   // Called once the command ends or is interrupted.

@@ -17,7 +17,7 @@ package frc.robot;
  */
 public final class Constants {
 
-    public static final int END_EFFECTOR_MOTOR = -1;
+    //public static final int END_EFFECTOR_MOTOR = -1;
     //public static final int MASTER_LEFT_MOTOR = 3;
     //public static final int MASTER_RIGHT_MOTOR = 0;
     //public static final int SLAVE_LEFT_MOTOR = 4;
@@ -40,7 +40,7 @@ public final class Constants {
 
         //Talon IDs
         public static final int SHOOTER_SLAVE = 1;
-        public static final int SHOOTER_MASTER = 0;
+        public static final int SHOOTER_MASTER = 2;
 
         //PID constants
         public static double kP_Shoot = 0;
