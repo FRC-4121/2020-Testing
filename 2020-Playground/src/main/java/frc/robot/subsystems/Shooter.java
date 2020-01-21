@@ -23,7 +23,7 @@ import frc.robot.RobotContainer;
 public class Shooter extends SubsystemBase {
   
   private final WPI_TalonSRX masterShooter = new WPI_TalonSRX(SHOOTER_MASTER);
-  //private final WPI_TalonSRX slaveShooter = new WPI_TalonSRX(SHOOTER_SLAVE);
+  private final WPI_TalonSRX slaveShooter = new WPI_TalonSRX(SHOOTER_SLAVE);
 
   public Shooter() {
 
@@ -42,8 +42,9 @@ public class Shooter extends SubsystemBase {
 
     //masterShooter.set(speed);
     masterShooter.set(speed);
-    //slaveShooter.set(-speed); //inverted because we are attempting to put two motors on one shaft.
-    SmartDashboard.putNumber("Motor Current", masterShooter.getSupplyCurrent());
-    SmartDashboard.putNumber("Motor Speed", masterShooter.get());
+    //slaveShooter.set(speed);
+
+    SmartDashboard.putNumber("Master Motor Current", masterShooter.getSupplyCurrent());
+    SmartDashboard.putNumber("Master Motor Speed", masterShooter.get());
   }
 }

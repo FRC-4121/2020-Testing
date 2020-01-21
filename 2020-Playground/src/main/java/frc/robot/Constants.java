@@ -66,4 +66,11 @@ public final class Constants {
         //PID constants
         //public static ;
     }
+
+    public static class ClimberConstants {
+
+
+        public static final int CLIMBER_MOTOR = -1;
+
+    }
 }

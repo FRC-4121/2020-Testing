@@ -7,22 +7,20 @@
 
 package frc.robot;
 
-import static frc.robot.Constants.*;
+import static frc.robot.Constants.LEFT_JOY_PORT;
+import static frc.robot.Constants.RIGHT_JOY_PORT;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.*;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveWithJoysticksCommand;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.RunEndEffectorIn;
 import frc.robot.commands.RunEndEffectorOut;
 import frc.robot.commands.ShootWithJoysticksCommand;
 import frc.robot.commands.StopEndEffector;
 import frc.robot.subsystems.EndEffector;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.ShooterSameShaft;
 import frc.robot.subsystems.WestCoastDrivetrain;
 
