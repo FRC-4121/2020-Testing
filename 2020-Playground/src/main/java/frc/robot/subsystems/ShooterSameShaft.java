@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import static frc.robot.Constants.*;
 import static frc.robot.Constants.ShooterConstants.*;
 
 import com.revrobotics.CANEncoder;

@@ -8,7 +8,9 @@
 package frc.robot.subsystems;
 
 import static frc.robot.Constants.*;
+import static frc.robot.Constants.DrivetrainConstants.*;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -52,8 +54,36 @@ public class WestCoastDrivetrain extends SubsystemBase {
     rightMotorSlave2 = new WPI_TalonSRX(SLAVE2_RIGHT_MOTOR);
     rightMotorGroup = new SpeedControllerGroup(rightMotorMaster, rightMotorSlave1, rightMotorSlave2);
   
-    // Initialize robot drive train
+    //Initialize robot drive train
     westCoastDrive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
+
+    //Configure encoders
+    //left motor
+		leftMotorMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, kPIDLoopIdx, kTimeoutMs);
+		leftMotorMaster.setSensorPhase(!kSensorPhase);
+		leftMotorMaster.setInverted(kMotorInvert);
+		int absolutePositionLeft = leftMotorMaster.getSensorCollection().getPulseWidthPosition();
+		/* mask out overflows, keep bottom 12 bits */
+		absolutePositionLeft &= 0xFFF;
+		if (!kSensorPhase)
+			absolutePositionLeft *= -1;
+		if (kMotorInvert) //need to mess with this
+			absolutePositionLeft *= -1;
+		leftMotorMaster.setSelectedSensorPosition(absolutePositionLeft, kPIDLoopIdx, kTimeoutMs);
+		
+		
+		//right motor
+		rightMotorMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, kPIDLoopIdx, kTimeoutMs);
+		rightMotorMaster.setSensorPhase(kSensorPhase); //might need to change kSensorPhaseinRobotMap
+		rightMotorMaster.setInverted(kMotorInvert);
+		int absolutePositionRight = rightMotorMaster.getSensorCollection().getPulseWidthPosition();
+
+		absolutePositionRight &= 0xFFF;
+		if (kSensorPhase)
+		  absolutePositionRight *= -1;
+		if (kMotorInvert) //need to mess with this
+		  absolutePositionRight *= -1;
+		rightMotorMaster.setSelectedSensorPosition(absolutePositionRight, kPIDLoopIdx, kTimeoutMs);
   }
 
   @Override
@@ -63,7 +93,7 @@ public class WestCoastDrivetrain extends SubsystemBase {
 
   public void drive(double leftJoyX, double leftJoyY, double rightJoyX, double rightJoyY) {
 
-    if (DIRECTION_MULTIPLIER == 1)  //TODO: Change back to 1
+    if (DIRECTION_MULTIPLIER == 1)
 
       westCoastDrive.tankDrive(leftJoyY * -DIRECTION_MULTIPLIER, rightJoyY * -DIRECTION_MULTIPLIER);
 

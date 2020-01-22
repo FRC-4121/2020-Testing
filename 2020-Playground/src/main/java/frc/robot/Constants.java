@@ -17,11 +17,13 @@ package frc.robot;
  */
 public final class Constants {
 
-    //public static final int END_EFFECTOR_MOTOR = -1;
-    //public static final int MASTER_LEFT_MOTOR = 3;
-    //public static final int MASTER_RIGHT_MOTOR = 0;
-    //public static final int SLAVE_LEFT_MOTOR = 4;
-    //public static final int SLAVE_RIGHT_MOTOR = 1;
+    //Talon IDs for all subsystems
+    
+    //Shooter Talons
+    public static final int SHOOTER_SLAVE = 1;
+    public static final int SHOOTER_MASTER = 2;
+
+    //Drivetrain Talons
     public static final int MASTER_LEFT_MOTOR = 7;
     public static final int SLAVE1_LEFT_MOTOR = 6;
     public static final int SLAVE2_LEFT_MOTOR = 4;
@@ -29,18 +31,14 @@ public final class Constants {
     public static final int SLAVE1_RIGHT_MOTOR = 2;
     public static final int SLAVE2_RIGHT_MOTOR = 5;
 
+    //Other Talons
+    public static final int CLIMBER_MOTOR = -1;
     
-
-    public static int DIRECTION_MULTIPLIER = -1;
-
+    //Joystick port IDs
     public static int LEFT_JOY_PORT = 0;
     public static int RIGHT_JOY_PORT = 1;
 
     public static class ShooterConstants {
-
-        //Talon IDs
-        public static final int SHOOTER_SLAVE = 1;
-        public static final int SHOOTER_MASTER = 2;
 
         //PID constants
         public static double kP_Shoot = 0;
@@ -61,19 +59,24 @@ public final class Constants {
 
     public static class DrivetrainConstants {
 
-        //Talon IDs
+        //Encoder and PID constants
+        public static final int kPIDLoopIdx = 0;
+        public static final int kTimeoutMs = 20;
+        public static final boolean kSensorPhase = true;
+        public static final boolean kMotorInvert = false; //right side is inverted compared to left already, change this to swap sides
 
-        //PID constants
-        //public static ;
-
+        //Shifter solenoid IDs
         public static final int[] LEFT_SHIFTER_SOLENOID = {0, 1};
         public static final int[] RIGHT_SHIFTER_SOLENOID = {2, 3};
+
+        //Miscellaneous
+        public static int DIRECTION_MULTIPLIER = -1;
+
+
+
     }
 
     public static class ClimberConstants {
-
-
-        public static final int CLIMBER_MOTOR = -1;
 
     }
 }
