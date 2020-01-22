@@ -15,6 +15,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSameShaft extends SubsystemBase {
@@ -25,6 +26,8 @@ public class ShooterSameShaft extends SubsystemBase {
   private final CANPIDController shooter1PID = shooter1.getPIDController();
   
   private final CANEncoder shooter1Encoder = shooter1.getEncoder();
+  private final CANEncoder shooter2Encoder = shooter2.getEncoder();
+
 
   public ShooterSameShaft() {
 
@@ -46,10 +49,15 @@ public class ShooterSameShaft extends SubsystemBase {
     
     double setPoint = speed*6000;
 
-    shooter1PID.setReference(setPoint, ControlType.kVelocity);
+    //shooter1PID.setReference(setPoint, ControlType.kVelocity);
 
-    //masterShooter.set(speed);
-    //slaveShooter.set(-speed); //inverted because we are attempting to put two motors on one shaft.
+    shooter1.set(speed);
+    shooter2.set(-speed); //inverted because we are attempting to put two motors on one shaft.
+
+    SmartDashboard.putNumber("Motor 1 Current", shooter1.getOutputCurrent());
+    SmartDashboard.putNumber("Motor 2 Current", shooter2.getOutputCurrent());
+    SmartDashboard.putNumber("Motor 1 Speed", shooter1Encoder.getVelocity());
+    SmartDashboard.putNumber("Motor 2 Speed", shooter2Encoder.getVelocity());
 
   }
 }

@@ -22,12 +22,12 @@ public final class Constants {
     //public static final int MASTER_RIGHT_MOTOR = 0;
     //public static final int SLAVE_LEFT_MOTOR = 4;
     //public static final int SLAVE_RIGHT_MOTOR = 1;
-    public static final int MASTER_LEFT_MOTOR = -1;
-    public static final int SLAVE1_LEFT_MOTOR = -1;
-    public static final int SLAVE2_LEFT_MOTOR = -1;
-    public static final int MASTER_RIGHT_MOTOR = -1;
-    public static final int SLAVE1_RIGHT_MOTOR = -1;
-    public static final int SLAVE2_RIGHT_MOTOR = -1;
+    public static final int MASTER_LEFT_MOTOR = 7;
+    public static final int SLAVE1_LEFT_MOTOR = 6;
+    public static final int SLAVE2_LEFT_MOTOR = 4;
+    public static final int MASTER_RIGHT_MOTOR = 3;
+    public static final int SLAVE1_RIGHT_MOTOR = 2;
+    public static final int SLAVE2_RIGHT_MOTOR = 5;
 
     
 
@@ -65,6 +65,9 @@ public final class Constants {
 
         //PID constants
         //public static ;
+
+        public static final int[] LEFT_SHIFTER_SOLENOID = {0, 1};
+        public static final int[] RIGHT_SHIFTER_SOLENOID = {2, 3};
     }
 
     public static class ClimberConstants {

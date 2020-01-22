@@ -15,14 +15,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.DriveWithJoysticksCommand;
-import frc.robot.commands.RunEndEffectorIn;
-import frc.robot.commands.RunEndEffectorOut;
-import frc.robot.commands.ShootWithJoysticksCommand;
-import frc.robot.commands.StopEndEffector;
-import frc.robot.subsystems.EndEffector;
-import frc.robot.subsystems.ShooterSameShaft;
-import frc.robot.subsystems.WestCoastDrivetrain;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -36,12 +30,15 @@ public class RobotContainer {
   private final EndEffector end = new EndEffector();
   //private final Shooter shooter = new Shooter();
   private final ShooterSameShaft shooter = new ShooterSameShaft();
+  private final Shifter shifter = new Shifter();
 
   private final DriveWithJoysticksCommand joysticksCommand = new DriveWithJoysticksCommand(drivetrain);
-  private final ShootWithJoysticksCommand shootCommand = new ShootWithJoysticksCommand(shooter);
+  //private final ShootWithJoysticksCommand shootCommand = new ShootWithJoysticksCommand(shooter);
   private final RunEndEffectorIn runEndEffectorIn = new RunEndEffectorIn(end);
   private final RunEndEffectorOut runEndEffectorOut = new RunEndEffectorOut(end);
   private final StopEndEffector stopEndEffector = new StopEndEffector(end);
+  private final ShiftUp shiftUp = new ShiftUp(shifter);
+  private final ShiftDown shiftDown = new ShiftDown(shifter);
 
   private final Joystick leftJoy;
   private final Joystick rightJoy;
@@ -49,6 +46,8 @@ public class RobotContainer {
 
   private JoystickButton inButton;
   private JoystickButton outButton;
+  private JoystickButton shiftUpButton;
+  private JoystickButton shiftDownButton;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -61,7 +60,7 @@ public class RobotContainer {
 
     //Set default drivetrain command to DriveWithJoysticks
     drivetrain.setDefaultCommand(joysticksCommand);
-    shooter.setDefaultCommand(shootCommand);
+    //shooter.setDefaultCommand(shootCommand);
 
 
     // Configure the button bindings
@@ -79,11 +78,18 @@ public class RobotContainer {
     inButton = new JoystickButton(leftJoy, 1);
     outButton = new JoystickButton(rightJoy, 1);
 
+    shiftUpButton = new JoystickButton(rightJoy, 2);
+    shiftDownButton = new JoystickButton(leftJoy, 2);
+
     inButton.whileHeld(runEndEffectorIn);
     inButton.whenReleased(stopEndEffector);
 
     outButton.whileHeld(runEndEffectorOut);
     outButton.whenReleased(stopEndEffector);
+
+    shiftUpButton.whenPressed(shiftUp);
+    shiftDownButton.whenPressed(shiftDown);
+
 
   }
 
