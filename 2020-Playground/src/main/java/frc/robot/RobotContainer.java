@@ -39,6 +39,7 @@ public class RobotContainer {
   private final Climber climber = new Climber();
 
   private final DriveWithJoysticksCommand joysticksCommand = new DriveWithJoysticksCommand(drivetrain);
+  private final DriveWithXboxCommand xboxCommand = new DriveWithXboxCommand(drivetrain);
   private final ClimbWithJoysticksCommand climbCommand = new ClimbWithJoysticksCommand(climber);
   private final ShootWithJoysticksCommand shootCommand = new ShootWithJoysticksCommand(shooter);
   private final RunEndEffectorIn runEndEffectorIn = new RunEndEffectorIn(end);
@@ -76,7 +77,8 @@ public class RobotContainer {
 
     //Set default drivetrain command to DriveWithJoysticks
     //drivetrain.setDefaultCommand(joysticksCommand);
-    shooter.setDefaultCommand(shootCommand);
+    drivetrain.setDefaultCommand(xboxCommand);
+    //shooter.setDefaultCommand(shootCommand);
     //climber.setDefaultCommand(climbCommand);
 
 
