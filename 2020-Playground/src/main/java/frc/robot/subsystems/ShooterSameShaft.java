@@ -32,7 +32,7 @@ public class ShooterSameShaft extends SubsystemBase {
 
   public ShooterSameShaft() {
 
-    shooter2.follow(shooter1, true);
+    //shooter2.follow(shooter1, true);
 
   }
 

@@ -10,10 +10,15 @@ package frc.robot;
 import static frc.robot.Constants.LEFT_JOY_PORT;
 import static frc.robot.Constants.RIGHT_JOY_PORT;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -28,17 +33,22 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final WestCoastDrivetrain drivetrain = new WestCoastDrivetrain();
   private final EndEffector end = new EndEffector();
-  //private final Shooter shooter = new Shooter();
+  // private final Shooter shooter = new Shooter();
   private final ShooterSameShaft shooter = new ShooterSameShaft();
   private final Shifter shifter = new Shifter();
+  private final Climber climber = new Climber();
 
   private final DriveWithJoysticksCommand joysticksCommand = new DriveWithJoysticksCommand(drivetrain);
-  //private final ShootWithJoysticksCommand shootCommand = new ShootWithJoysticksCommand(shooter);
+  private final ClimbWithJoysticksCommand climbCommand = new ClimbWithJoysticksCommand(climber);
+  private final ShootWithJoysticksCommand shootCommand = new ShootWithJoysticksCommand(shooter);
   private final RunEndEffectorIn runEndEffectorIn = new RunEndEffectorIn(end);
   private final RunEndEffectorOut runEndEffectorOut = new RunEndEffectorOut(end);
   private final StopEndEffector stopEndEffector = new StopEndEffector(end);
   private final ShiftUp shiftUp = new ShiftUp(shifter);
   private final ShiftDown shiftDown = new ShiftDown(shifter);
+
+  private final CameraServer camServer;
+  private final UsbCamera driveCam;
 
   private final Joystick leftJoy;
   private final Joystick rightJoy;
@@ -54,13 +64,20 @@ public class RobotContainer {
    */
   public RobotContainer() {
     
+    camServer = CameraServer.getInstance();
+    driveCam = camServer.startAutomaticCapture("Driver View", 0);
+    driveCam.setResolution(160, 120);
+    driveCam.setFPS(15);
+    driveCam.setBrightness(50);
+
     leftJoy = new Joystick(LEFT_JOY_PORT);
     rightJoy = new Joystick(RIGHT_JOY_PORT);
     //turretJoy = new Joystick(2);
 
     //Set default drivetrain command to DriveWithJoysticks
-    drivetrain.setDefaultCommand(joysticksCommand);
-    //shooter.setDefaultCommand(shootCommand);
+    //drivetrain.setDefaultCommand(joysticksCommand);
+    shooter.setDefaultCommand(shootCommand);
+    //climber.setDefaultCommand(climbCommand);
 
 
     // Configure the button bindings
@@ -101,6 +118,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return new SequentialCommandGroup(new AutoDrive(drivetrain, shifter, 50, 0, -1, 5, false));
   }
 }

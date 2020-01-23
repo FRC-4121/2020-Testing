@@ -11,13 +11,18 @@ import static frc.robot.Constants.*;
 import static frc.robot.Constants.DrivetrainConstants.*;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class WestCoastDrivetrain extends SubsystemBase {
+
+  private final ADXRS450_Gyro rioGyro = new ADXRS450_Gyro();
   
   WPI_TalonSRX leftMotorMaster;
   WPI_TalonSRX leftMotorSlave1;
@@ -57,6 +62,14 @@ public class WestCoastDrivetrain extends SubsystemBase {
     //Initialize robot drive train
     westCoastDrive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
 
+    //Set all talons to brake mode
+    leftMotorMaster.setNeutralMode(NeutralMode.Brake);
+    leftMotorSlave1.setNeutralMode(NeutralMode.Brake);
+    leftMotorSlave2.setNeutralMode(NeutralMode.Brake);
+    rightMotorMaster.setNeutralMode(NeutralMode.Brake);
+    rightMotorSlave1.setNeutralMode(NeutralMode.Brake);
+    rightMotorSlave2.setNeutralMode(NeutralMode.Brake);
+
     //Configure encoders
     //left motor
 		leftMotorMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, kPIDLoopIdx, kTimeoutMs);
@@ -88,7 +101,8 @@ public class WestCoastDrivetrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    // This method will be called once per scheduler 
+    SmartDashboard.putNumber("Rio Gyro Angle", getGyroAngle());
   }
 
   public void drive(double leftJoyX, double leftJoyY, double rightJoyX, double rightJoyY) {
@@ -101,6 +115,33 @@ public class WestCoastDrivetrain extends SubsystemBase {
 
       westCoastDrive.tankDrive(leftJoyY * -DIRECTION_MULTIPLIER, rightJoyY * -DIRECTION_MULTIPLIER);
     
+  }
+
+  public void autoDrive(double leftSpeed, double rightSpeed){
+
+
+    westCoastDrive.tankDrive(leftSpeed, rightSpeed);
+
+  }
+
+  public void autoStop(){
+
+    westCoastDrive.tankDrive(0, 0);
+  }
+
+  public int getLeftEncoder(){
+
+    return leftMotorMaster.getSelectedSensorPosition();
+  }
+
+  public int getRightEncoder(){
+
+    return rightMotorMaster.getSelectedSensorPosition();
+  }
+
+  public double getGyroAngle(){
+
+    return rioGyro.getAngle();
   }
  
 }

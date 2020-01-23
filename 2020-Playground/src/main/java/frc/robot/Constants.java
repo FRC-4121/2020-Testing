@@ -32,7 +32,7 @@ public final class Constants {
     public static final int SLAVE2_RIGHT_MOTOR = 5;
 
     //Other Talons
-    public static final int CLIMBER_MOTOR = -1;
+    public static final int CLIMBER_MOTOR = 1;
     
     //Joystick port IDs
     public static int LEFT_JOY_PORT = 0;
@@ -59,11 +59,22 @@ public final class Constants {
 
     public static class DrivetrainConstants {
 
-        //Encoder and PID constants
+        //Speeds
+        public static final double AUTO_DRIVE_SPEED = 0.85;
+
+        //Encoder and PID config constants
         public static final int kPIDLoopIdx = 0;
         public static final int kTimeoutMs = 20;
         public static final boolean kSensorPhase = true;
         public static final boolean kMotorInvert = false; //right side is inverted compared to left already, change this to swap sides
+        public static final double WHEEL_DIAMETER = 8;
+        public static final double DRIVE_GEAR_RATIO_HIGH = 7.08;//WRONGGGGGG must solve
+        public static final double DRIVE_GEAR_RATIO_LOW = 15.32;
+
+        //PID Constants
+        public static double kP_Straight = 0;
+        public static double kI_Straight = 0;
+        public static double kD_Straight = 0;
 
         //Shifter solenoid IDs
         public static final int[] LEFT_SHIFTER_SOLENOID = {0, 1};

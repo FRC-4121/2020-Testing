@@ -12,6 +12,7 @@ import static frc.robot.Constants.DrivetrainConstants.*;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shifter extends SubsystemBase {
@@ -21,20 +22,42 @@ public class Shifter extends SubsystemBase {
   private final DoubleSolenoid leftShifterSolenoid = new DoubleSolenoid(LEFT_SHIFTER_SOLENOID[0], LEFT_SHIFTER_SOLENOID[1]);
   private final DoubleSolenoid rightShifterSolenoid = new DoubleSolenoid(RIGHT_SHIFTER_SOLENOID[0], RIGHT_SHIFTER_SOLENOID[1]);
 
+  private String gear;
+
   public Shifter() {
 
+    if (leftShifterSolenoid.get() == Value.kForward && rightShifterSolenoid.get() == Value.kForward)
+      gear = "High";
+    else if (leftShifterSolenoid.get() == Value.kReverse && rightShifterSolenoid.get() == Value.kReverse)
+      gear = "Low";
+    else
+      gear = "Mixed";
+
+  }
+
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler 
+    SmartDashboard.putString("Gear", gear);
   }
 
   public void shiftUp() {
 
     leftShifterSolenoid.set(Value.kForward);
     rightShifterSolenoid.set(Value.kForward);
+    gear = "High";
   }
 
   public void shiftDown() {
 
     leftShifterSolenoid.set(Value.kReverse);
     rightShifterSolenoid.set(Value.kReverse);
+    gear = "Low";
 
+  }
+
+  public String getGear(){
+
+    return gear;
   }
 }
