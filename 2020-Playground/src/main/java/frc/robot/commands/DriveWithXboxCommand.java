@@ -7,6 +7,8 @@
 
 package frc.robot.commands;
 
+import static frc.robot.Constants.*;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -16,7 +18,7 @@ public class DriveWithXboxCommand extends CommandBase {
   
   private final WestCoastDrivetrain drivetrain;
   
-  private final XboxController xbox = new XboxController(0);
+  private final XboxController xbox = new XboxController(XBOX_PORT);
   
   public DriveWithXboxCommand(WestCoastDrivetrain drive) {
 
@@ -35,6 +37,7 @@ public class DriveWithXboxCommand extends CommandBase {
   public void execute() {
 
     drivetrain.drive(xbox.getX(Hand.kLeft), xbox.getY(Hand.kLeft), xbox.getX(Hand.kRight), xbox.getY(Hand.kRight));
+    
   }
 
   // Called once the command ends or is interrupted.

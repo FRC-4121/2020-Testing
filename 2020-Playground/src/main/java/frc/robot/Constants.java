@@ -37,6 +37,7 @@ public final class Constants {
     //Joystick port IDs
     public static int LEFT_JOY_PORT = 0;
     public static int RIGHT_JOY_PORT = 1;
+    public static int XBOX_PORT = 2;
 
     public static class ShooterConstants {
 

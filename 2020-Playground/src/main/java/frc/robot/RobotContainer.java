@@ -7,8 +7,7 @@
 
 package frc.robot;
 
-import static frc.robot.Constants.LEFT_JOY_PORT;
-import static frc.robot.Constants.RIGHT_JOY_PORT;
+import static frc.robot.Constants.*;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -16,7 +15,6 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -54,6 +52,7 @@ public class RobotContainer {
   private final Joystick leftJoy;
   private final Joystick rightJoy;
   //public final Joystick turretJoy;
+  private final XboxController xbox;
 
   private JoystickButton inButton;
   private JoystickButton outButton;
@@ -74,10 +73,12 @@ public class RobotContainer {
     leftJoy = new Joystick(LEFT_JOY_PORT);
     rightJoy = new Joystick(RIGHT_JOY_PORT);
     //turretJoy = new Joystick(2);
+    xbox = new XboxController(XBOX_PORT);
 
-    //Set default drivetrain command to DriveWithJoysticks
+    //Set default drivetrain command to DriveWithJoysticks or xbox
     //drivetrain.setDefaultCommand(joysticksCommand);
     drivetrain.setDefaultCommand(xboxCommand);
+    
     //shooter.setDefaultCommand(shootCommand);
     //climber.setDefaultCommand(climbCommand);
 
@@ -120,6 +121,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new SequentialCommandGroup(new AutoDrive(drivetrain, shifter, 50, 0, -1, 5, false));
+    return new SequentialCommandGroup(new AutoDrive(drivetrain, shifter, 60, 0, -1, 5, false));
   }
 }

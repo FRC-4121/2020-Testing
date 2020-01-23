@@ -103,6 +103,8 @@ public class WestCoastDrivetrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler 
     SmartDashboard.putNumber("Rio Gyro Angle", getGyroAngle());
+    SmartDashboard.putNumber("Left Encoder", getLeftEncoder());
+    SmartDashboard.putNumber("Right Encoder", getRightEncoder());
   }
 
   public void drive(double leftJoyX, double leftJoyY, double rightJoyX, double rightJoyY) {
