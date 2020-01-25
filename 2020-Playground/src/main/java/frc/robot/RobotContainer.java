@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -82,6 +83,7 @@ public class RobotContainer {
     //shooter.setDefaultCommand(shootCommand);
     //climber.setDefaultCommand(climbCommand);
 
+    SmartDashboard.putBoolean("High Gear?", false);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -121,6 +123,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new SequentialCommandGroup(new AutoDrive(drivetrain, shifter, 60, 0, -1, 5, false));
+    boolean gearChoice = SmartDashboard.getBoolean("High Gear?", false);
+    return new SequentialCommandGroup(new AutoDrive(drivetrain, shifter, 144, 0, -1, 5, gearChoice));
   }
 }

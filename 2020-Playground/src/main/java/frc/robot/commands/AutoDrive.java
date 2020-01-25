@@ -27,7 +27,7 @@ public class AutoDrive extends CommandBase {
   private double stopTime;
   private boolean highGear;
 
-  private double angleCorrection, angleError;
+  private double angleCorrection, angleError, speedCorrection;
   private double startTime;
   private double distanceTraveled;
 
@@ -36,7 +36,9 @@ public class AutoDrive extends CommandBase {
 
 
   private Timer timer = new Timer();
-  private PIDControl pidControl;
+  private PIDControl pidAngle;
+  private PIDControl pidSpeedLow;
+  private PIDControl pidSpeedHigh;
 
 
   public AutoDrive(WestCoastDrivetrain drive, Shifter shift, double dis, double ang, double dir, double time, boolean useHighGear) {
@@ -51,7 +53,9 @@ public class AutoDrive extends CommandBase {
     stopTime = time;
     highGear = useHighGear;
 
-    pidControl = new PIDControl(kP_Straight, kI_Straight, kD_Straight);
+    pidAngle = new PIDControl(kP_Straight, kI_Straight, kD_Straight);
+    pidSpeedLow = new PIDControl(kP_Speed_Low, kI_Speed_Low, kD_Speed_Low);
+    pidSpeedHigh = new PIDControl(kP_Speed_High, kI_Speed_High, kD_Speed_High);
   }
 
   // Called when the command is initially scheduled.
@@ -67,6 +71,7 @@ public class AutoDrive extends CommandBase {
 
     angleCorrection = 0;
     angleError = 0;
+    speedCorrection = 1;
 
     if(highGear && shifter.getGear().equals("Low"))
       shifter.shiftUp();
@@ -79,14 +84,32 @@ public class AutoDrive extends CommandBase {
   @Override
   public void execute() {
 
-    angleCorrection = pidControl.run(drivetrain.getGyroAngle(), targetAngle);
-    drivetrain.autoDrive(direction*AUTO_DRIVE_SPEED + angleCorrection, direction*AUTO_DRIVE_SPEED - angleCorrection);
+    int totalRotationsRight = Math.abs((drivetrain.getRightEncoder() - rightEncoderStart));
+    int totalRotationsLeft = Math.abs((drivetrain.getLeftEncoder() - leftEncoderStart));
+    distanceTraveled = (WHEEL_DIAMETER * Math.PI * (totalRotationsLeft + totalRotationsRight) / 2.0) / AUTO_ENCODER_REVOLUTION_FACTOR;
+
+    angleCorrection = pidAngle.run(drivetrain.getGyroAngle(), targetAngle);
+    if (highGear) {
+      speedCorrection = pidSpeedHigh.run(distanceTraveled, targetDistance);
+    }
+    else {
+      speedCorrection = pidSpeedLow.run(distanceTraveled, targetDistance);
+    }
+    
+    if (speedCorrection > 1.0) {
+      speedCorrection = 1.0;
+    } else if (speedCorrection < -1.0) {
+      speedCorrection = -1.0;
+    }
+    drivetrain.autoDrive(-speedCorrection * direction * AUTO_DRIVE_SPEED + angleCorrection, -speedCorrection * direction*AUTO_DRIVE_SPEED - angleCorrection);
     SmartDashboard.putNumber("Angle Correction", angleCorrection);
+    SmartDashboard.putNumber("Speed Correction", speedCorrection);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    drivetrain.autoStop();
   }
 
   // Returns true when the command should end.
@@ -103,18 +126,15 @@ public class AutoDrive extends CommandBase {
     }
     else {
 
-      int totalRotationsRight = Math.abs((drivetrain.getRightEncoder() - rightEncoderStart) / 4096);
-      int totalRotationsLeft = Math.abs((drivetrain.getLeftEncoder() - leftEncoderStart) / 4096);
-      
-      if (highGear)
-        distanceTraveled = (WHEEL_DIAMETER * Math.PI * (totalRotationsLeft + totalRotationsRight) / 2.0) / DRIVE_GEAR_RATIO_HIGH;
-      else
-        distanceTraveled = (WHEEL_DIAMETER * Math.PI * (totalRotationsLeft + totalRotationsRight) / 2.0) / DRIVE_GEAR_RATIO_LOW;
-
-      if(targetDistance <= distanceTraveled){
+      if (targetDistance <= distanceTraveled - 2){
 
         thereYet = true;
-      }
+
+      }// else if(Math.abs(targetDistance - distanceTraveled) <= 24){
+
+        //shifter.shiftDown();
+      
+      //}
 
       SmartDashboard.putNumber("Distance Traveled", distanceTraveled);
 

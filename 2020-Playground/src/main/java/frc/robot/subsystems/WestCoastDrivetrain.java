@@ -96,7 +96,10 @@ public class WestCoastDrivetrain extends SubsystemBase {
 		  absolutePositionRight *= -1;
 		if (kMotorInvert) //need to mess with this
 		  absolutePositionRight *= -1;
-		rightMotorMaster.setSelectedSensorPosition(absolutePositionRight, kPIDLoopIdx, kTimeoutMs);
+    rightMotorMaster.setSelectedSensorPosition(absolutePositionRight, kPIDLoopIdx, kTimeoutMs);
+    
+    zeroEncoders();
+    zeroGyro();
   }
 
   @Override
@@ -105,6 +108,18 @@ public class WestCoastDrivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Rio Gyro Angle", getGyroAngle());
     SmartDashboard.putNumber("Left Encoder", getLeftEncoder());
     SmartDashboard.putNumber("Right Encoder", getRightEncoder());
+
+    if(SmartDashboard.getNumber("Zero Gyro", 0) == 1) {
+
+      zeroGyro();
+    }
+
+    if(SmartDashboard.getNumber("Zero Encoders", 0) == 1){
+
+      zeroEncoders();
+    }
+      
+
   }
 
   public void drive(double leftJoyX, double leftJoyY, double rightJoyX, double rightJoyY) {
@@ -144,6 +159,17 @@ public class WestCoastDrivetrain extends SubsystemBase {
   public double getGyroAngle(){
 
     return rioGyro.getAngle();
+  }
+
+  public void zeroEncoders(){
+
+    leftMotorMaster.setSelectedSensorPosition(0);
+    rightMotorMaster.setSelectedSensorPosition(0);
+  }
+
+  public void zeroGyro(){
+
+    rioGyro.reset();
   }
  
 }

@@ -26,13 +26,9 @@ public class Shifter extends SubsystemBase {
 
   public Shifter() {
 
-    if (leftShifterSolenoid.get() == Value.kForward && rightShifterSolenoid.get() == Value.kForward)
-      gear = "High";
-    else if (leftShifterSolenoid.get() == Value.kReverse && rightShifterSolenoid.get() == Value.kReverse)
-      gear = "Low";
-    else
-      gear = "Mixed";
-
+    //Start in low gear
+    shiftDown();
+  
   }
 
   @Override
