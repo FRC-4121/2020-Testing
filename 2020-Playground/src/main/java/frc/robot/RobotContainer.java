@@ -78,9 +78,9 @@ public class RobotContainer {
 
     //Set default drivetrain command to DriveWithJoysticks or xbox
     //drivetrain.setDefaultCommand(joysticksCommand);
-    drivetrain.setDefaultCommand(xboxCommand);
+    //drivetrain.setDefaultCommand(xboxCommand);
     
-    //shooter.setDefaultCommand(shootCommand);
+    shooter.setDefaultCommand(shootCommand);
     //climber.setDefaultCommand(climbCommand);
 
     SmartDashboard.putBoolean("High Gear?", false);

@@ -38,7 +38,7 @@ public class ShootWithJoysticksCommand extends CommandBase {
   @Override
   public void execute() {
 
-    shooter.runShooter(-rightJoy.getY());
+    shooter.runShooter(2*rightJoy.getY());
 
   }
 
