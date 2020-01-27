@@ -10,29 +10,39 @@ package frc.robot.subsystems;
 import static frc.robot.Constants.*;
 import static frc.robot.Constants.ShooterConstants.*;
 
+import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSameShaft extends SubsystemBase {
   
-  private final CANSparkMax shooter1 = new CANSparkMax(SHOOTER_MASTER, MotorType.kBrushless);
-  private final CANSparkMax shooter2 = new CANSparkMax(SHOOTER_SLAVE, MotorType.kBrushless);
+  //private final CANSparkMax shooter1 = new CANSparkMax(SHOOTER_MASTER, MotorType.kBrushless);
+  //private final CANSparkMax shooter2 = new CANSparkMax(SHOOTER_SLAVE, MotorType.kBrushless);
+  private final WPI_TalonFX shooter1 = new WPI_TalonFX(SHOOTER_MASTER);
+  private final WPI_TalonFX shooter2 = new WPI_TalonFX(SHOOTER_SLAVE);
+
+  private final WPI_TalonSRX turret = new WPI_TalonSRX(TURRET);
+  private final Encoder turretEncoder = new Encoder(TURRET_ENCODER_1, TURRET_ENCODER_2);
  
-  private final CANPIDController shooter1PID = shooter1.getPIDController();
+  //private final CANPIDController shooter1PID = shooter1.getPIDController();
   
-  private final CANEncoder shooter1Encoder = shooter1.getEncoder();
-  private final CANEncoder shooter2Encoder = shooter2.getEncoder();
+  //private final CANEncoder shooter1Encoder = shooter1.getEncoder();
+  //private final CANEncoder shooter2Encoder = shooter2.getEncoder();
 
 
   public ShooterSameShaft() {
 
-    //shooter2.follow(shooter1, true);
+    shooter2.setInverted(InvertType.OpposeMaster);
+
 
   }
 
@@ -43,10 +53,10 @@ public class ShooterSameShaft extends SubsystemBase {
 
   public void runShooter(double speed){
 
-    shooter1PID.setP(5e-5);
-    shooter1PID.setI(1e-6);
-    shooter1PID.setD(0);
-    shooter1PID.setOutputRange(-1, 1);
+    // shooter1PID.setP(5e-5);
+    // shooter1PID.setI(1e-6);
+    // shooter1PID.setD(0);
+    // shooter1PID.setOutputRange(-1, 1);
     
     double setPoint = speed*6000;
 
@@ -55,10 +65,16 @@ public class ShooterSameShaft extends SubsystemBase {
     shooter1.set(speed);
     shooter2.set(-speed); //inverted because we are attempting to put two motors on one shaft.
 
-    SmartDashboard.putNumber("Motor 1 Current", shooter1.getOutputCurrent());
-    SmartDashboard.putNumber("Motor 2 Current", shooter2.getOutputCurrent());
-    SmartDashboard.putNumber("Motor 1 Speed", shooter1Encoder.getVelocity());
-    SmartDashboard.putNumber("Motor 2 Speed", shooter2Encoder.getVelocity());
+    SmartDashboard.putNumber("Motor 1 Current", shooter1.getSupplyCurrent());
+    SmartDashboard.putNumber("Motor 2 Current", shooter2.getSupplyCurrent());
+    //SmartDashboard.putNumber("Motor 1 Speed", shooter1Encoder.getVelocity());
+    //SmartDashboard.putNumber("Motor 2 Speed", shooter2Encoder.getVelocity());
+
+  }
+
+  public void rotateShooter(double speed){
+
+    turret.set(speed);
 
   }
 }

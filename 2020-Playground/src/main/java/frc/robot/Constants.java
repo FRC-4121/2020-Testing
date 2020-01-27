@@ -22,6 +22,7 @@ public final class Constants {
     //Shooter Talons
     public static final int SHOOTER_SLAVE = 1;
     public static final int SHOOTER_MASTER = 2;
+    public static final int TURRET = 8;
 
     //Drivetrain Talons
     public static final int MASTER_LEFT_MOTOR = 7;
@@ -35,19 +36,23 @@ public final class Constants {
     public static final int CLIMBER_MOTOR = 1;
     
     //Joystick port IDs
-    public static int LEFT_JOY_PORT = 0;
-    public static int RIGHT_JOY_PORT = 1;
-    public static int XBOX_PORT = 2;
+    public static final int LEFT_JOY_PORT = 0;
+    public static final int RIGHT_JOY_PORT = 1;
+    public static final int XBOX_PORT = 2;
 
     public static class ShooterConstants {
 
         //PID constants
-        public static double kP_Shoot = 0;
-        public static double kI_Shoot = 0;
-        public static double kD_Shoot = 0; 
+        public static final double kP_Shoot = 0;
+        public static final double kI_Shoot = 0;
+        public static final double kD_Shoot = 0; 
+
+        //Encoders
+        public static final int TURRET_ENCODER_1 = 0;
+        public static final int TURRET_ENCODER_2 = 1;
 
         //Configuration constants
-        public static double kRPS_Tolerance = 0;
+        public static final double kRPS_Tolerance = 0;
         public static final double kRPS_Target = 100;
 
         public static final double kShooterWheelDiameter = 6; //inches
