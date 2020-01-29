@@ -38,7 +38,7 @@ public class AutoDrive extends CommandBase {
   private Timer timer = new Timer();
   private PIDControl pidAngle;
   private PIDControl pidSpeedLow;
-  private PIDControl pidSpeedHigh;
+  private PIDControl pidSpeedHigh; 
 
 
   public AutoDrive(WestCoastDrivetrain drive, Shifter shift, double dis, double ang, double dir, double time, boolean useHighGear) {

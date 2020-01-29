@@ -11,6 +11,9 @@ import static frc.robot.Constants.*;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
@@ -36,11 +39,13 @@ public class RobotContainer {
   private final ShooterSameShaft shooter = new ShooterSameShaft();
   private final Shifter shifter = new Shifter();
   private final Climber climber = new Climber();
+  private final Turret turret = new Turret();
 
   private final DriveWithJoysticksCommand joysticksCommand = new DriveWithJoysticksCommand(drivetrain);
   private final DriveWithXboxCommand xboxCommand = new DriveWithXboxCommand(drivetrain);
   private final ClimbWithJoysticksCommand climbCommand = new ClimbWithJoysticksCommand(climber);
   private final ShootWithJoysticksCommand shootCommand = new ShootWithJoysticksCommand(shooter);
+  private final TurretTargetLock turretCommand = new TurretTargetLock(turret);
   private final RunEndEffectorIn runEndEffectorIn = new RunEndEffectorIn(end);
   private final RunEndEffectorOut runEndEffectorOut = new RunEndEffectorOut(end);
   private final StopEndEffector stopEndEffector = new StopEndEffector(end);
@@ -78,12 +83,15 @@ public class RobotContainer {
 
     //Set default drivetrain command to DriveWithJoysticks or xbox
     //drivetrain.setDefaultCommand(joysticksCommand);
-    //drivetrain.setDefaultCommand(xboxCommand);
+    drivetrain.setDefaultCommand(xboxCommand);
     
     shooter.setDefaultCommand(shootCommand);
+    turret.setDefaultCommand(turretCommand);
     //climber.setDefaultCommand(climbCommand);
 
     SmartDashboard.putBoolean("High Gear?", false);
+    SmartDashboard.putBoolean("Target Lock", false);
+    //SmartDashboard.putBoolean("Target Lock", turret.getTargetLock());
 
     // Configure the button bindings
     configureButtonBindings();
@@ -115,6 +123,10 @@ public class RobotContainer {
 
   }
 
+  public boolean getTargetLock(){
+
+    return turret.getTargetLock();
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -124,6 +136,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     boolean gearChoice = SmartDashboard.getBoolean("High Gear?", false);
-    return new SequentialCommandGroup(new AutoDrive(drivetrain, shifter, 144, 0, -1, 5, gearChoice));
+    return new AutoSpin(drivetrain, .4, 5);
   }
 }

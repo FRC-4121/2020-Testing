@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import static frc.robot.Constants.*;
 import static frc.robot.Constants.ShooterConstants.*;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -43,6 +44,8 @@ public class ShooterSameShaft extends SubsystemBase {
 
     shooter2.setInverted(InvertType.OpposeMaster);
 
+    shooter1.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, kPIDLoopIdx, kTimeoutMs);
+
 
   }
 
@@ -67,7 +70,7 @@ public class ShooterSameShaft extends SubsystemBase {
 
     SmartDashboard.putNumber("Motor 1 Current", shooter1.getSupplyCurrent());
     SmartDashboard.putNumber("Motor 2 Current", shooter2.getSupplyCurrent());
-    //SmartDashboard.putNumber("Motor 1 Speed", shooter1Encoder.getVelocity());
+    SmartDashboard.putNumber("Motor 1 Speed", shooter1.getSelectedSensorVelocity());
     //SmartDashboard.putNumber("Motor 2 Speed", shooter2Encoder.getVelocity());
 
   }

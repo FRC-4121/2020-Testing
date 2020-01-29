@@ -46,6 +46,9 @@ public final class Constants {
         public static final double kP_Shoot = 0;
         public static final double kI_Shoot = 0;
         public static final double kD_Shoot = 0; 
+        public static final double kP_Turret = .04;
+        public static final double kI_Turret = 0;
+        public static final double kD_Turret = 0.00;
 
         //Encoders
         public static final int TURRET_ENCODER_1 = 0;
@@ -54,12 +57,16 @@ public final class Constants {
         //Configuration constants
         public static final double kRPS_Tolerance = 0;
         public static final double kRPS_Target = 100;
+        public static final int kPIDLoopIdx = 0;
+        public static final int kTimeoutMs = 20;
 
         public static final double kShooterWheelDiameter = 6; //inches
         public static final double kEncoderPPR = 4096; //pulses per revolution
         public static final double kEncoderDistancePerPulse = kShooterWheelDiameter * Math.PI / kEncoderPPR; 
 
         public static final double kShooterSpeed = 1.0;
+
+        public static final double TURRET_SPEED = .8;
         
     }
 
