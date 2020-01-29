@@ -20,8 +20,8 @@ public final class Constants {
     //Talon IDs for all subsystems
     
     //Shooter Talons
-    public static final int SHOOTER_SLAVE = 1;
-    public static final int SHOOTER_MASTER = 2;
+    public static final int SHOOTER_SLAVE = 0;
+    public static final int SHOOTER_MASTER = 1;
     public static final int TURRET = 8;
 
     //Drivetrain Talons
