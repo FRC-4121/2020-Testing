@@ -85,9 +85,9 @@ public class RobotContainer {
     //drivetrain.setDefaultCommand(joysticksCommand);
     drivetrain.setDefaultCommand(xboxCommand);
     
-    shooter.setDefaultCommand(shootCommand);
-    turret.setDefaultCommand(turretCommand);
-    //climber.setDefaultCommand(climbCommand);
+    //shooter.setDefaultCommand(shootCommand);
+    //turret.setDefaultCommand(turretCommand);
+    climber.setDefaultCommand(climbCommand);
 
     SmartDashboard.putBoolean("High Gear?", false);
     SmartDashboard.putBoolean("Target Lock", false);

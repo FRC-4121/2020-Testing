@@ -11,12 +11,14 @@ import static frc.robot.Constants.*;
 import static frc.robot.Constants.ClimberConstants.*;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Climber extends SubsystemBase {
-  
-  private final WPI_TalonSRX climbMotor = new WPI_TalonSRX(CLIMBER_MOTOR);
+
+  private final CANSparkMax climbMotor = new CANSparkMax(CLIMBER_MOTOR, MotorType.kBrushless);
 
   public Climber() {
 
