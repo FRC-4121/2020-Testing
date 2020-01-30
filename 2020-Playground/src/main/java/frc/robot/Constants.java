@@ -18,6 +18,14 @@ package frc.robot;
 public final class Constants {
 
     //Talon IDs for all subsystems
+    //Single generic controller for all types
+    public static final int GENERIC_TALON_1 = -1;
+    public static final int GENERIC_FALCON_1 = -1;
+    public static final int GENERIC_SPARK_1 = -1;
+    
+    public static final int GENERIC_TALON_2 = -1;
+    public static final int GENERIC_FALCON_2 = -1;
+    public static final int GENERIC_SPARK_2 = -1;
     
     //Shooter Talons
     public static final int SHOOTER_SLAVE = 0;
@@ -34,6 +42,7 @@ public final class Constants {
 
     //Other Talons
     public static final int CLIMBER_MOTOR = 1;
+    public static final int PROCESSOR_1 = -1;
     
     //Joystick port IDs
     public static final int LEFT_JOY_PORT = 0;

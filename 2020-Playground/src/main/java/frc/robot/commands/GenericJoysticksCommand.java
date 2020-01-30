@@ -7,14 +7,22 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import static frc.robot.Constants.*;
 
-public class RunTurret extends CommandBase {
-  /**
-   * Creates a new RunTurret.
-   */
-  public RunTurret() {
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.GenericSubsystem;
+
+public class GenericJoysticksCommand extends CommandBase {
+  
+  private final GenericSubsystem subsystem;
+  private final Joystick rightJoy = new Joystick(RIGHT_JOY_PORT);
+
+  public GenericJoysticksCommand(GenericSubsystem system) {
+
+    subsystem = system;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -25,6 +33,7 @@ public class RunTurret extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    subsystem.runMotor(rightJoy.getY());
   }
 
   // Called once the command ends or is interrupted.

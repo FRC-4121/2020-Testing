@@ -34,21 +34,17 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final WestCoastDrivetrain drivetrain = new WestCoastDrivetrain();
-  private final EndEffector end = new EndEffector();
   // private final Shooter shooter = new Shooter();
   private final ShooterSameShaft shooter = new ShooterSameShaft();
   private final Shifter shifter = new Shifter();
-  private final Climber climber = new Climber();
   private final Turret turret = new Turret();
+  private final GenericSubsystem genericSubsystem = new GenericSubsystem();
 
   private final DriveWithJoysticksCommand joysticksCommand = new DriveWithJoysticksCommand(drivetrain);
   private final DriveWithXboxCommand xboxCommand = new DriveWithXboxCommand(drivetrain);
-  private final ClimbWithJoysticksCommand climbCommand = new ClimbWithJoysticksCommand(climber);
+  private final GenericJoysticksCommand genericJoysticksCommand = new GenericJoysticksCommand(genericSubsystem);
   private final ShootWithJoysticksCommand shootCommand = new ShootWithJoysticksCommand(shooter);
   private final TurretTargetLock turretCommand = new TurretTargetLock(turret);
-  private final RunEndEffectorIn runEndEffectorIn = new RunEndEffectorIn(end);
-  private final RunEndEffectorOut runEndEffectorOut = new RunEndEffectorOut(end);
-  private final StopEndEffector stopEndEffector = new StopEndEffector(end);
   private final ShiftUp shiftUp = new ShiftUp(shifter);
   private final ShiftDown shiftDown = new ShiftDown(shifter);
 
@@ -57,7 +53,6 @@ public class RobotContainer {
 
   private final Joystick leftJoy;
   private final Joystick rightJoy;
-  //public final Joystick turretJoy;
   private final XboxController xbox;
 
   private JoystickButton inButton;
@@ -78,16 +73,17 @@ public class RobotContainer {
 
     leftJoy = new Joystick(LEFT_JOY_PORT);
     rightJoy = new Joystick(RIGHT_JOY_PORT);
-    //turretJoy = new Joystick(2);
     xbox = new XboxController(XBOX_PORT);
 
     //Set default drivetrain command to DriveWithJoysticks or xbox
     //drivetrain.setDefaultCommand(joysticksCommand);
     drivetrain.setDefaultCommand(xboxCommand);
     
+    //For testing purposes, this will control simple one- or two-motor subsystems.
+    genericSubsystem.setDefaultCommand(genericJoysticksCommand);
+    
     //shooter.setDefaultCommand(shootCommand);
     //turret.setDefaultCommand(turretCommand);
-    climber.setDefaultCommand(climbCommand);
 
     SmartDashboard.putBoolean("High Gear?", false);
     SmartDashboard.putBoolean("Target Lock", false);
@@ -110,12 +106,6 @@ public class RobotContainer {
 
     shiftUpButton = new JoystickButton(rightJoy, 2);
     shiftDownButton = new JoystickButton(leftJoy, 2);
-
-    inButton.whileHeld(runEndEffectorIn);
-    inButton.whenReleased(stopEndEffector);
-
-    outButton.whileHeld(runEndEffectorOut);
-    outButton.whenReleased(stopEndEffector);
 
     shiftUpButton.whenPressed(shiftUp);
     shiftDownButton.whenPressed(shiftDown);

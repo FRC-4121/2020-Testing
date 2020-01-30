@@ -9,31 +9,34 @@ package frc.robot.subsystems;
 
 import static frc.robot.Constants.*;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class EndEffector extends SubsystemBase {
+//This is a generic subsystem for testing purposes
+public class GenericSubsystem extends SubsystemBase {
  
-  //WPI_TalonSRX endEffectorMotor;
-  private CANSparkMax endEffectorMotor;
+  //private final WPI_TalonSRX motor1 = new WPI_TalonSRX(GENERIC_TALON_1);
+  //private final WPI_TalonFX motor1 = new WPI_TalonFX(GENERIC_FALCON_1);
+  private CANSparkMax motor1 = new CANSparkMax(GENERIC_SPARK_1, MotorType.kBrushless);
+
+  //private final WPI_TalonSRX motor2 = new WPI_TalonSRX(GENERIC_TALON_2);
+  //private final WPI_TalonFX motor = new WPI_TalonFX(GENERIC_FALCON_2);
+  //private CANSparkMax motor2 = new CANSparkMax(GENERIC_SPARK_2, MotorType.kBrushless);
   
-  public EndEffector() {
+  
+  public GenericSubsystem() {
 
-    //endEffectorMotor = new CANSparkMax(END_EFFECTOR_MOTOR, MotorType.kBrushless);
-
+    
   }
 
   public void runMotor(double speed){
 
-    //endEffectorMotor.set(speed);
-
-
-  }
-
-  private void initMotor(){
+    motor1.set(speed);
+    //motor2.set(-speed);
 
   }
 
