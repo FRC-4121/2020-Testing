@@ -7,58 +7,37 @@
 
 package frc.robot.commands;
 
-import static frc.robot.Constants.DrivetrainConstants.*;
+import static frc.robot.Constants.*;
 import static frc.robot.Constants.ShooterConstants.*;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.NetworkTableValues;
-import frc.robot.extraClasses.PIDControl;
 import frc.robot.subsystems.Turret;
 
-public class TurretTargetLock extends CommandBase {
+public class SpinTurret extends CommandBase {
   
   private final Turret turret;
-  private final NetworkTableValues ntables = new NetworkTableValues();
 
-  private double angleCorrection;
-  private double ballAngle;
-  
-  private PIDControl pidAngle;
+  private final Joystick rightJoy = new Joystick(RIGHT_JOY_PORT);
 
-  public TurretTargetLock(Turret turretSystem) {
+  public SpinTurret(Turret turretSubsystem) {
 
-    turret = turretSystem;
+    turret = turretSubsystem;
 
+    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(turret);
-
-    pidAngle = new PIDControl(kP_Turret, kI_Turret, kD_Turret);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
-    angleCorrection = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    if (turret.getTargetLock() && ntables.foundBall.getBoolean(false)){
-      
-      ballAngle = ntables.ballAngle.getDouble(0);
-      angleCorrection = pidAngle.run(ballAngle, 0);
-
-      if(Math.abs(ballAngle) <= 2){
-        angleCorrection = 0;
-      }
-
-      //Actual turret code is being implemented at this time
-      //turret.autoDrive(TURRET_SPEED * -angleCorrection, TURRET_SPEED * angleCorrection);
-    
-    } 
-
+    turret.runTurret(rightJoy.getY() * kTurret_Speed);
   }
 
   // Called once the command ends or is interrupted.

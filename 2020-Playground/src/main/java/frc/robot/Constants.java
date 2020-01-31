@@ -21,7 +21,7 @@ public final class Constants {
     //Single generic controller for all types
     public static final int GENERIC_TALON_1 = -1;
     public static final int GENERIC_FALCON_1 = -1;
-    public static final int GENERIC_SPARK_1 = -1;
+    public static final int GENERIC_SPARK_1 = 1;
     
     public static final int GENERIC_TALON_2 = -1;
     public static final int GENERIC_FALCON_2 = -1;
@@ -30,13 +30,13 @@ public final class Constants {
     //Shooter Talons
     public static final int SHOOTER_SLAVE = 0;
     public static final int SHOOTER_MASTER = 1;
-    public static final int TURRET = 8;
+    public static final int TURRET = 3;
 
     //Drivetrain Talons
     public static final int MASTER_LEFT_MOTOR = 7;
     public static final int SLAVE1_LEFT_MOTOR = 6;
     public static final int SLAVE2_LEFT_MOTOR = 4;
-    public static final int MASTER_RIGHT_MOTOR = 3;
+    public static final int MASTER_RIGHT_MOTOR = -1;
     public static final int SLAVE1_RIGHT_MOTOR = 2;
     public static final int SLAVE2_RIGHT_MOTOR = 5;
 
@@ -62,6 +62,9 @@ public final class Constants {
         //Encoders
         public static final int TURRET_ENCODER_1 = 0;
         public static final int TURRET_ENCODER_2 = 1;
+
+        //Turret slow-down factor
+        public static final double kTurret_Speed = .5;
 
         //Configuration constants
         public static final double kRPS_Tolerance = 0;

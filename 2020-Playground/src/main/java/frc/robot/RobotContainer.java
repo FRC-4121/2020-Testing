@@ -44,7 +44,7 @@ public class RobotContainer {
   private final DriveWithXboxCommand xboxCommand = new DriveWithXboxCommand(drivetrain);
   private final GenericJoysticksCommand genericJoysticksCommand = new GenericJoysticksCommand(genericSubsystem);
   private final ShootWithJoysticksCommand shootCommand = new ShootWithJoysticksCommand(shooter);
-  private final TurretTargetLock turretCommand = new TurretTargetLock(turret);
+  private final SpinTurret turretCommand = new SpinTurret(turret);
   private final ShiftUp shiftUp = new ShiftUp(shifter);
   private final ShiftDown shiftDown = new ShiftDown(shifter);
 
@@ -82,8 +82,8 @@ public class RobotContainer {
     //For testing purposes, this will control simple one- or two-motor subsystems.
     genericSubsystem.setDefaultCommand(genericJoysticksCommand);
     
-    //shooter.setDefaultCommand(shootCommand);
-    //turret.setDefaultCommand(turretCommand);
+    shooter.setDefaultCommand(shootCommand);
+    turret.setDefaultCommand(turretCommand);
 
     SmartDashboard.putBoolean("High Gear?", false);
     SmartDashboard.putBoolean("Target Lock", false);
