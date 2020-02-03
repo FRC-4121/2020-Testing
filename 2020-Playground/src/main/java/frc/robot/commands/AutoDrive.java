@@ -53,7 +53,7 @@ public class AutoDrive extends CommandBase {
     stopTime = time;
     highGear = useHighGear;
 
-    pidAngle = new PIDControl(kP_Straight, kI_Straight, kD_Straight);
+    pidAngle = new PIDControl(kP_Angle_Straight, kI_Angle_Straight, kD_Angle_Straight);
     pidSpeedLow = new PIDControl(kP_Speed_Low, kI_Speed_Low, kD_Speed_Low);
     pidSpeedHigh = new PIDControl(kP_Speed_High, kI_Speed_High, kD_Speed_High);
   }

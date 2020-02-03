@@ -93,22 +93,28 @@ public final class Constants {
         public static final boolean kSensorPhase = true;
         public static final boolean kMotorInvert = false; //right side is inverted compared to left already, change this to swap sides
         public static final double WHEEL_DIAMETER = 7.5;
-        public static final double DRIVE_GEAR_RATIO_HIGH = 7.08;//WRONGGGGGG must solve
+        public static final double DRIVE_GEAR_RATIO_HIGH = 7.08;
         public static final double DRIVE_GEAR_RATIO_LOW = 15.32;
         public static final double LOW_GEAR_FUDGE_FACTOR = .288;
         public static final double HIGH_GEAR_FUDGE_FACTOR = .33;
         public static final double AUTO_ENCODER_REVOLUTION_FACTOR = 22187.5;
 
         //PID Constants
-        public static double kP_Straight = 0.032;
-        public static double kI_Straight = 0;
-        public static double kD_Straight = 0;
-        public static double kP_Speed_Low = 0.07;
-        public static double kI_Speed_Low = 0;
-        public static double kD_Speed_Low = 0.0027;
-        public static double kP_Speed_High = 0.0155;
-        public static double kI_Speed_High = 0;
-        public static double kD_Speed_High = 0.0037;
+        public static final double kP_Angle_Straight = 0.032;
+        public static final double kI_Angle_Straight = 0;
+        public static final double kD_Angle_Straight = 0;
+
+        public static final double kP_Angle_Turn = 0;
+        public static final double kI_Angle_Turn = 0;
+        public static final double kD_Angle_Turn = 0;
+
+        public static final double kP_Speed_Low = 0.07;
+        public static final double kI_Speed_Low = 0;
+        public static final double kD_Speed_Low = 0.0027;
+
+        public static final double kP_Speed_High = 0.0155;
+        public static final double kI_Speed_High = 0;
+        public static final double kD_Speed_High = 0.0037;
 
         //Shifter solenoid IDs
         public static final int[] LEFT_SHIFTER_SOLENOID = {0, 1};

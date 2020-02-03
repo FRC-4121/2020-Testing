@@ -53,7 +53,7 @@ public class NetworkTableValues {
         ballScreenPercent = visionTable.getEntry("BallScreenPercent");
         foundBall = visionTable.getEntry("FoundBall");
     
-      }
+    }
 
 
 }
