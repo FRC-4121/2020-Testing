@@ -19,7 +19,7 @@ public final class Constants {
 
     //Talon IDs for all subsystems
     //Single generic controller for all types
-    public static final int GENERIC_TALON_1 = -1;
+    public static final int GENERIC_TALON_1 = 3;
     public static final int GENERIC_FALCON_1 = -1;
     public static final int GENERIC_SPARK_1 = 1;
     

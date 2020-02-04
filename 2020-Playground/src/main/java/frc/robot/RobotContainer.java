@@ -83,7 +83,7 @@ public class RobotContainer {
     genericSubsystem.setDefaultCommand(genericJoysticksCommand);
     
     shooter.setDefaultCommand(shootCommand);
-    turret.setDefaultCommand(turretCommand);
+    //turret.setDefaultCommand(turretCommand);
 
     SmartDashboard.putBoolean("High Gear?", false);
     SmartDashboard.putBoolean("Target Lock", false);
