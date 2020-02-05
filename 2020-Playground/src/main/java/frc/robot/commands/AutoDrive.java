@@ -84,10 +84,6 @@ public class AutoDrive extends CommandBase {
   @Override
   public void execute() {
 
-    int totalRotationsRight = Math.abs((drivetrain.getRightEncoder() - rightEncoderStart));
-    int totalRotationsLeft = Math.abs((drivetrain.getLeftEncoder() - leftEncoderStart));
-    distanceTraveled = (WHEEL_DIAMETER * Math.PI * (totalRotationsLeft + totalRotationsRight) / 2.0) / AUTO_ENCODER_REVOLUTION_FACTOR;
-
     angleCorrection = pidAngle.run(drivetrain.getGyroAngle(), targetAngle);
     if (highGear) {
       speedCorrection = pidSpeedHigh.run(distanceTraveled, targetDistance);
@@ -104,6 +100,18 @@ public class AutoDrive extends CommandBase {
     drivetrain.autoDrive(-speedCorrection * direction * AUTO_DRIVE_SPEED + angleCorrection, -speedCorrection * direction*AUTO_DRIVE_SPEED - angleCorrection);
     SmartDashboard.putNumber("Angle Correction", angleCorrection);
     SmartDashboard.putNumber("Speed Correction", speedCorrection);
+
+    int totalRotationsRight = Math.abs((drivetrain.getRightEncoder() - rightEncoderStart));
+    int totalRotationsLeft = Math.abs((drivetrain.getLeftEncoder() - leftEncoderStart));
+
+    if(Math.abs(totalRotationsRight) > 0 && Math.abs(totalRotationsLeft) > 0){
+      distanceTraveled = (WHEEL_DIAMETER * Math.PI * (totalRotationsLeft + totalRotationsRight) / 2.0) / AUTO_ENCODER_REVOLUTION_FACTOR;
+    } else if(Math.abs(totalRotationsRight) > 0) {
+      distanceTraveled = (WHEEL_DIAMETER * Math.PI * (totalRotationsRight)) / AUTO_ENCODER_REVOLUTION_FACTOR;
+    } else if(Math.abs(totalRotationsLeft) > 0) {
+      distanceTraveled = (WHEEL_DIAMETER * Math.PI * (totalRotationsLeft)) / AUTO_ENCODER_REVOLUTION_FACTOR;
+    }
+
   }
 
   // Called once the command ends or is interrupted.
@@ -120,25 +128,24 @@ public class AutoDrive extends CommandBase {
 
     double time = timer.get();
 
-    if(stopTime <= time - startTime){
+    
+    if (Math.abs(targetDistance - distanceTraveled) <= 1){
 
-        thereYet = true;
-    }
-    else {
+      thereYet = true;
 
-      if (targetDistance <= distanceTraveled - 2){
-
-        thereYet = true;
-
-      }// else if(Math.abs(targetDistance - distanceTraveled) <= 24){
+      // else if(Math.abs(targetDistance - distanceTraveled) <= 24){
 
         //shifter.shiftDown();
       
       //}
 
-      SmartDashboard.putNumber("Distance Traveled", distanceTraveled);
+      
 
-    }
+      }// } else if (stopTime <= time - startTime){
+
+    //   thereYet = true;
+    // }
+    SmartDashboard.putNumber("Distance Traveled", distanceTraveled);
 
     return thereYet;
 

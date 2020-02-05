@@ -125,7 +125,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    boolean gearChoice = SmartDashboard.getBoolean("High Gear?", false);
-    return new AutoSpin(drivetrain, .4, 5);
+    //boolean gearChoice = SmartDashboard.getBoolean("High Gear?", false);
+    return new AutoTestGroup1(drivetrain, shifter);
   }
 }

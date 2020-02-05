@@ -30,13 +30,13 @@ public final class Constants {
     //Shooter Talons
     public static final int SHOOTER_SLAVE = 0;
     public static final int SHOOTER_MASTER = 1;
-    public static final int TURRET = 3;
+    public static final int TURRET = -1;
 
     //Drivetrain Talons
     public static final int MASTER_LEFT_MOTOR = 7;
     public static final int SLAVE1_LEFT_MOTOR = 6;
     public static final int SLAVE2_LEFT_MOTOR = 4;
-    public static final int MASTER_RIGHT_MOTOR = -1;
+    public static final int MASTER_RIGHT_MOTOR = 3;
     public static final int SLAVE1_RIGHT_MOTOR = 2;
     public static final int SLAVE2_RIGHT_MOTOR = 5;
 
@@ -85,7 +85,7 @@ public final class Constants {
     public static class DrivetrainConstants {
 
         //Speeds
-        public static final double AUTO_DRIVE_SPEED = 0.85;
+        public static final double AUTO_DRIVE_SPEED = 0.9;
 
         //Encoder and PID config constants
         public static final int kPIDLoopIdx = 0;
@@ -104,7 +104,7 @@ public final class Constants {
         public static final double kI_Angle_Straight = 0;
         public static final double kD_Angle_Straight = 0;
 
-        public static final double kP_Angle_Turn = 0;
+        public static final double kP_Angle_Turn = .5;
         public static final double kI_Angle_Turn = 0;
         public static final double kD_Angle_Turn = 0;
 
@@ -112,7 +112,7 @@ public final class Constants {
         public static final double kI_Speed_Low = 0;
         public static final double kD_Speed_Low = 0.0027;
 
-        public static final double kP_Speed_High = 0.0155;
+        public static final double kP_Speed_High = 0.0255;
         public static final double kI_Speed_High = 0;
         public static final double kD_Speed_High = 0.0037;
 
