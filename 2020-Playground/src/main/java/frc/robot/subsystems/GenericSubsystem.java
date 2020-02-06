@@ -19,9 +19,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //This is a generic subsystem for testing purposes
 public class GenericSubsystem extends SubsystemBase {
  
-  //private final WPI_TalonSRX motor1 = new WPI_TalonSRX(GENERIC_TALON_1);
+  private final WPI_TalonSRX motor1 = new WPI_TalonSRX(GENERIC_TALON_1);
   //private final WPI_TalonFX motor1 = new WPI_TalonFX(GENERIC_FALCON_1);
-  private CANSparkMax motor1 = new CANSparkMax(GENERIC_SPARK_1, MotorType.kBrushless);
+  //private CANSparkMax motor1 = new CANSparkMax(GENERIC_SPARK_1, MotorType.kBrushless);
 
   //private final WPI_TalonSRX motor2 = new WPI_TalonSRX(GENERIC_TALON_2);
   //private final WPI_TalonFX motor = new WPI_TalonFX(GENERIC_FALCON_2);

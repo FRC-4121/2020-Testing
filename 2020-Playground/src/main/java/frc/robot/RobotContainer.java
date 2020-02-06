@@ -89,7 +89,7 @@ public class RobotContainer {
     genericSubsystem.setDefaultCommand(genericJoysticksCommand);
     
     shooter.setDefaultCommand(shootCommand);
-    turret.setDefaultCommand(turretCommand);
+    //turret.setDefaultCommand(turretCommand);
 
     SmartDashboard.putBoolean("High Gear?", false);
     SmartDashboard.putBoolean("Target Lock", false);
@@ -131,7 +131,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    boolean gearChoice = SmartDashboard.getBoolean("High Gear?", false);
-    return new AutoSpin(drivetrain, .4, 5);
+    //boolean gearChoice = SmartDashboard.getBoolean("High Gear?", false);
+    return new AutoTestGroup1(drivetrain, shifter);
   }
 }
