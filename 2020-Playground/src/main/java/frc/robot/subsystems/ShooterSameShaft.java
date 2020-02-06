@@ -70,8 +70,8 @@ public class ShooterSameShaft extends SubsystemBase {
 
     SmartDashboard.putNumber("Motor 1 Current", shooter1.getSupplyCurrent());
     SmartDashboard.putNumber("Motor 2 Current", shooter2.getSupplyCurrent());
-    SmartDashboard.putNumber("Motor 1 Speed", shooter1.getSelectedSensorVelocity());
-    //SmartDashboard.putNumber("Motor 2 Speed", shooter2Encoder.getVelocity());
+    SmartDashboard.putNumber("Motor 1 RPM", shooter1.getSelectedSensorVelocity() * 10 * 60 / kTalonFXPPR);//method returns raw units per 100ms (why, I don't know)
+    SmartDashboard.putNumber("Motor 2 RPM", shooter2.getSelectedSensorVelocity() * 10 * 60 / kTalonFXPPR);
 
   }
 

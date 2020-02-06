@@ -23,6 +23,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
+import frc.robot.extraClasses.CameraThreader;
+import frc.robot.extraClasses.NetworkTableQuerier;
 import frc.robot.subsystems.*;
 
 /*
@@ -48,8 +50,8 @@ public class RobotContainer {
   private final ShiftUp shiftUp = new ShiftUp(shifter);
   private final ShiftDown shiftDown = new ShiftDown(shifter);
 
-  private final CameraServer camServer;
-  private final UsbCamera driveCam;
+  // private final CameraServer camServer;
+  // private final UsbCamera driveCam;
 
   private final Joystick leftJoy;
   private final Joystick rightJoy;
@@ -60,16 +62,20 @@ public class RobotContainer {
   private JoystickButton shiftUpButton;
   private JoystickButton shiftDownButton;
 
+  private final NetworkTableQuerier ntables = new NetworkTableQuerier();
+  private final CameraThreader cameraThreader = new CameraThreader();
+
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     
-    camServer = CameraServer.getInstance();
-    driveCam = camServer.startAutomaticCapture("Driver View", 0);
-    driveCam.setResolution(160, 120);
-    driveCam.setFPS(15);
-    driveCam.setBrightness(50);
+    // camServer = CameraServer.getInstance();
+    // driveCam = camServer.startAutomaticCapture("Driver View", 0);
+    // driveCam.setResolution(160, 120);
+    // driveCam.setFPS(15);
+    // driveCam.setBrightness(50);
+    cameraThreader.start();
 
     leftJoy = new Joystick(LEFT_JOY_PORT);
     rightJoy = new Joystick(RIGHT_JOY_PORT);

@@ -74,6 +74,7 @@ public final class Constants {
 
         public static final double kShooterWheelDiameter = 6; //inches
         public static final double kEncoderPPR = 4096; //pulses per revolution
+        public static final double kTalonFXPPR = 2048;
         public static final double kEncoderDistancePerPulse = kShooterWheelDiameter * Math.PI / kEncoderPPR; 
 
         public static final double kShooterSpeed = 1.0;
