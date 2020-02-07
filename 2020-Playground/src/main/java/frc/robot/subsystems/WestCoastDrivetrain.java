@@ -47,17 +47,19 @@ public class WestCoastDrivetrain extends SubsystemBase {
   //This method initializes the entire drivetrain
   public void initDrivetrain() {
 
+    //Note that current practice chassis has only two motors, no encoders.
+
     //Initialize left side motors
     leftMotorMaster = new WPI_TalonSRX(MASTER_LEFT_MOTOR);
     leftMotorSlave1 = new WPI_TalonSRX(SLAVE1_LEFT_MOTOR);
-    leftMotorSlave2 = new WPI_TalonSRX(SLAVE2_LEFT_MOTOR);
-    leftMotorGroup = new SpeedControllerGroup(leftMotorMaster, leftMotorSlave1, leftMotorSlave2);
+    //leftMotorSlave2 = new WPI_TalonSRX(SLAVE2_LEFT_MOTOR);
+    leftMotorGroup = new SpeedControllerGroup(leftMotorMaster, leftMotorSlave1);//, leftMotorSlave2);
   
     //Initialize right side motors
     rightMotorMaster = new WPI_TalonSRX(MASTER_RIGHT_MOTOR);
     rightMotorSlave1 = new WPI_TalonSRX(SLAVE1_RIGHT_MOTOR);
-    rightMotorSlave2 = new WPI_TalonSRX(SLAVE2_RIGHT_MOTOR);
-    rightMotorGroup = new SpeedControllerGroup(rightMotorMaster, rightMotorSlave1, rightMotorSlave2);
+    //rightMotorSlave2 = new WPI_TalonSRX(SLAVE2_RIGHT_MOTOR);
+    rightMotorGroup = new SpeedControllerGroup(rightMotorMaster, rightMotorSlave1);//, rightMotorSlave2);
   
     //Initialize robot drive train
     westCoastDrive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
@@ -65,40 +67,40 @@ public class WestCoastDrivetrain extends SubsystemBase {
     //Set all talons to brake mode
     leftMotorMaster.setNeutralMode(NeutralMode.Brake);
     leftMotorSlave1.setNeutralMode(NeutralMode.Brake);
-    leftMotorSlave2.setNeutralMode(NeutralMode.Brake);
+    //leftMotorSlave2.setNeutralMode(NeutralMode.Brake);
     rightMotorMaster.setNeutralMode(NeutralMode.Brake);
     rightMotorSlave1.setNeutralMode(NeutralMode.Brake);
-    rightMotorSlave2.setNeutralMode(NeutralMode.Brake);
+    //rightMotorSlave2.setNeutralMode(NeutralMode.Brake);
 
     //Configure encoders
     //left motor
-		leftMotorMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, kPIDLoopIdx, kTimeoutMs);
-		leftMotorMaster.setSensorPhase(!kSensorPhase);
-		leftMotorMaster.setInverted(kMotorInvert);
-		int absolutePositionLeft = leftMotorMaster.getSensorCollection().getPulseWidthPosition();
-		/* mask out overflows, keep bottom 12 bits */
-		absolutePositionLeft &= 0xFFF;
-		if (!kSensorPhase)
-			absolutePositionLeft *= -1;
-		if (kMotorInvert) //need to mess with this
-			absolutePositionLeft *= -1;
-		leftMotorMaster.setSelectedSensorPosition(absolutePositionLeft, kPIDLoopIdx, kTimeoutMs);
+		// leftMotorMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, kPIDLoopIdx, kTimeoutMs);
+		// leftMotorMaster.setSensorPhase(!kSensorPhase);
+		// leftMotorMaster.setInverted(kMotorInvert);
+		// int absolutePositionLeft = leftMotorMaster.getSensorCollection().getPulseWidthPosition();
+		// /* mask out overflows, keep bottom 12 bits */
+		// absolutePositionLeft &= 0xFFF;
+		// if (!kSensorPhase)
+		// 	absolutePositionLeft *= -1;
+		// if (kMotorInvert) //need to mess with this
+		// 	absolutePositionLeft *= -1;
+		// leftMotorMaster.setSelectedSensorPosition(absolutePositionLeft, kPIDLoopIdx, kTimeoutMs);
 		
 		
-		//right motor
-		rightMotorMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, kPIDLoopIdx, kTimeoutMs);
-		rightMotorMaster.setSensorPhase(kSensorPhase); //might need to change kSensorPhaseinRobotMap
-		rightMotorMaster.setInverted(kMotorInvert);
-		int absolutePositionRight = rightMotorMaster.getSensorCollection().getPulseWidthPosition();
+		// //right motor
+		// rightMotorMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, kPIDLoopIdx, kTimeoutMs);
+		// rightMotorMaster.setSensorPhase(kSensorPhase); //might need to change kSensorPhaseinRobotMap
+		// rightMotorMaster.setInverted(kMotorInvert);
+		// int absolutePositionRight = rightMotorMaster.getSensorCollection().getPulseWidthPosition();
 
-		absolutePositionRight &= 0xFFF;
-		if (kSensorPhase)
-		  absolutePositionRight *= -1;
-		if (kMotorInvert) //need to mess with this
-		  absolutePositionRight *= -1;
-    rightMotorMaster.setSelectedSensorPosition(absolutePositionRight, kPIDLoopIdx, kTimeoutMs);
+		// absolutePositionRight &= 0xFFF;
+		// if (kSensorPhase)
+		//   absolutePositionRight *= -1;
+		// if (kMotorInvert) //need to mess with this
+		//   absolutePositionRight *= -1;
+    // rightMotorMaster.setSelectedSensorPosition(absolutePositionRight, kPIDLoopIdx, kTimeoutMs);
     
-    zeroEncoders();
+    // zeroEncoders();
     zeroGyro();
   }
 
@@ -106,8 +108,8 @@ public class WestCoastDrivetrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler 
     SmartDashboard.putNumber("Rio Gyro Angle", getGyroAngle());
-    SmartDashboard.putNumber("Left Encoder", getLeftEncoder());
-    SmartDashboard.putNumber("Right Encoder", getRightEncoder());
+    // SmartDashboard.putNumber("Left Encoder", getLeftEncoder());
+    // SmartDashboard.putNumber("Right Encoder", getRightEncoder());
 
     if(SmartDashboard.getNumber("Zero Gyro", 0) == 1) {
 

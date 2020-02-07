@@ -86,10 +86,10 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(xboxCommand);
     
     //For testing purposes, this will control simple one- or two-motor subsystems.
-    genericSubsystem.setDefaultCommand(genericJoysticksCommand);
+    //genericSubsystem.setDefaultCommand(genericJoysticksCommand);
     
     shooter.setDefaultCommand(shootCommand);
-    //turret.setDefaultCommand(turretCommand);
+    turret.setDefaultCommand(turretCommand);
 
     SmartDashboard.putBoolean("High Gear?", false);
     SmartDashboard.putBoolean("Target Lock", false);
