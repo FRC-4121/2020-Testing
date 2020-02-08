@@ -32,7 +32,7 @@ public class ShooterSameShaft extends SubsystemBase {
   private final WPI_TalonFX shooter2 = new WPI_TalonFX(SHOOTER_SLAVE);
 
   private final WPI_TalonSRX turret = new WPI_TalonSRX(TURRET);
-  private final Encoder turretEncoder = new Encoder(TURRET_ENCODER_1, TURRET_ENCODER_2);
+  //private final Encoder turretEncoder = new Encoder(TURRET_ENCODER_1, TURRET_ENCODER_2);
  
   //private final CANPIDController shooter1PID = shooter1.getPIDController();
   

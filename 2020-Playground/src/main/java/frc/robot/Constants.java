@@ -19,7 +19,7 @@ public final class Constants {
 
     //Talon IDs for all subsystems
     //Single generic controller for all types
-    public static final int GENERIC_TALON_1 = 3;
+    public static final int GENERIC_TALON_1 = -1;
     public static final int GENERIC_FALCON_1 = -1;
     public static final int GENERIC_SPARK_1 = 1;
     
@@ -30,18 +30,24 @@ public final class Constants {
     //Shooter Talons
     public static final int SHOOTER_SLAVE = 0;
     public static final int SHOOTER_MASTER = 1;
-    public static final int TURRET = -1;
+    public static final int TURRET = 4;
 
     //Drivetrain Talons
-    public static final int MASTER_LEFT_MOTOR = 7;
-    public static final int SLAVE1_LEFT_MOTOR = 6;
-    public static final int SLAVE2_LEFT_MOTOR = 4;
+    // public static final int MASTER_LEFT_MOTOR = 7;
+    // public static final int SLAVE1_LEFT_MOTOR = 6;
+    // public static final int SLAVE2_LEFT_MOTOR = 4;
+    // public static final int MASTER_RIGHT_MOTOR = 3;
+    // public static final int SLAVE1_RIGHT_MOTOR = 2;
+    // public static final int SLAVE2_RIGHT_MOTOR = 5;
+    
+    //Chassis #2
+    public static final int MASTER_LEFT_MOTOR = 6;
+    public static final int SLAVE1_LEFT_MOTOR = 7;
     public static final int MASTER_RIGHT_MOTOR = 3;
     public static final int SLAVE1_RIGHT_MOTOR = 2;
-    public static final int SLAVE2_RIGHT_MOTOR = 5;
 
     //Other Talons
-    public static final int CLIMBER_MOTOR = 1;
+    public static final int CLIMBER_MOTOR = -1;
     public static final int PROCESSOR_1 = -1;
     
     //Joystick port IDs
@@ -75,6 +81,7 @@ public final class Constants {
         public static final double kShooterWheelDiameter = 6; //inches
         public static final double kEncoderPPR = 4096; //pulses per revolution
         public static final double kTalonFXPPR = 2048;
+        public static final double kTurretEncoderPPR = 7;
         public static final double kEncoderDistancePerPulse = kShooterWheelDiameter * Math.PI / kEncoderPPR; 
 
         public static final double kShooterSpeed = 1.0;
@@ -122,7 +129,7 @@ public final class Constants {
         public static final int[] RIGHT_SHIFTER_SOLENOID = {2, 3};
 
         //Miscellaneous
-        public static int DIRECTION_MULTIPLIER = -1;
+        public static int DIRECTION_MULTIPLIER = 1;
 
 
 
