@@ -19,7 +19,7 @@ public final class Constants {
 
     //Talon IDs for all subsystems
     //Single generic controller for all types
-    public static final int GENERIC_TALON_1 = -1;
+    public static final int GENERIC_TALON_1 = 4;
     public static final int GENERIC_FALCON_1 = -1;
     public static final int GENERIC_SPARK_1 = 1;
     
@@ -28,9 +28,9 @@ public final class Constants {
     public static final int GENERIC_SPARK_2 = -1;
     
     //Shooter Talons
-    public static final int SHOOTER_SLAVE = 0;
-    public static final int SHOOTER_MASTER = 1;
-    public static final int TURRET = 4;
+    public static final int SHOOTER_SLAVE = -1;
+    public static final int SHOOTER_MASTER = -1;
+    public static final int TURRET = -1;
 
     //Drivetrain Talons
     // public static final int MASTER_LEFT_MOTOR = 7;
@@ -41,10 +41,10 @@ public final class Constants {
     // public static final int SLAVE2_RIGHT_MOTOR = 5;
     
     //Chassis #2
-    public static final int MASTER_LEFT_MOTOR = 6;
-    public static final int SLAVE1_LEFT_MOTOR = 7;
-    public static final int MASTER_RIGHT_MOTOR = 3;
-    public static final int SLAVE1_RIGHT_MOTOR = 2;
+    public static final int MASTER_LEFT_MOTOR = 2;
+    public static final int SLAVE1_LEFT_MOTOR = 3;
+    public static final int MASTER_RIGHT_MOTOR = 6;
+    public static final int SLAVE1_RIGHT_MOTOR = 7;
 
     //Other Talons
     public static final int CLIMBER_MOTOR = -1;

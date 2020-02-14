@@ -49,6 +49,9 @@ public class RobotContainer {
   private final SpinTurret turretCommand = new SpinTurret(turret);
   private final ShiftUp shiftUp = new ShiftUp(shifter);
   private final ShiftDown shiftDown = new ShiftDown(shifter);
+  private final TestIntake in = new TestIntake(genericSubsystem, -.5);
+  private final TestIntake out = new TestIntake(genericSubsystem, 1.0);
+  private final TestIntake stopIntake = new TestIntake(genericSubsystem, 0);
 
   // private final CameraServer camServer;
   // private final UsbCamera driveCam;
@@ -86,10 +89,10 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(xboxCommand);
     
     //For testing purposes, this will control simple one- or two-motor subsystems.
-    //genericSubsystem.setDefaultCommand(genericJoysticksCommand);
+    genericSubsystem.setDefaultCommand(genericJoysticksCommand);
     
-    shooter.setDefaultCommand(shootCommand);
-    turret.setDefaultCommand(turretCommand);
+    //shooter.setDefaultCommand(shootCommand);
+    //turret.setDefaultCommand(turretCommand);
 
     SmartDashboard.putBoolean("High Gear?", false);
     SmartDashboard.putBoolean("Target Lock", false);
@@ -107,14 +110,19 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     
-    inButton = new JoystickButton(leftJoy, 1);
-    outButton = new JoystickButton(rightJoy, 1);
+    inButton = new JoystickButton(xbox, 5);
+    outButton = new JoystickButton(xbox, 6);
 
-    shiftUpButton = new JoystickButton(rightJoy, 2);
-    shiftDownButton = new JoystickButton(leftJoy, 2);
+    //shiftUpButton = new JoystickButton(rightJoy, 2);
+    //shiftDownButton = new JoystickButton(leftJoy, 2);
 
-    shiftUpButton.whenPressed(shiftUp);
-    shiftDownButton.whenPressed(shiftDown);
+    //shiftUpButton.whenPressed(shiftUp);
+    //shiftDownButton.whenPressed(shiftDown);
+
+    inButton.whileHeld(in);
+    inButton.whenReleased(stopIntake);
+    outButton.whileHeld(out);
+    outButton.whenReleased(stopIntake);
 
 
   }
