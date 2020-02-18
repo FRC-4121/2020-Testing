@@ -11,6 +11,8 @@ import static frc.robot.Constants.*;
 import static frc.robot.Constants.ShooterConstants.*;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -18,6 +20,7 @@ public class Shooter extends SubsystemBase {
   
   private final WPI_TalonSRX masterShooter = new WPI_TalonSRX(SHOOTER_MASTER);
   private final WPI_TalonSRX slaveShooter = new WPI_TalonSRX(SHOOTER_SLAVE);
+
 
   public Shooter() {
 

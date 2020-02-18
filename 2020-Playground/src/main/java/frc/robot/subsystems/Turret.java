@@ -47,30 +47,6 @@ public class Turret extends SubsystemBase {
 
   }
 
-  // public void drive(double leftJoyX, double leftJoyY, double rightJoyX, double rightJoyY) {
-
-  //   if (DIRECTION_MULTIPLIER == 1)
-
-  //     westCoastDrive.tankDrive(leftJoyY * -DIRECTION_MULTIPLIER, rightJoyY * -DIRECTION_MULTIPLIER);
-
-  //   else
-
-  //     westCoastDrive.tankDrive(leftJoyY * -DIRECTION_MULTIPLIER, rightJoyY * -DIRECTION_MULTIPLIER);
-    
-  // }
-
-  // public void autoDrive(double leftSpeed, double rightSpeed){
-
-
-  //   westCoastDrive.tankDrive(leftSpeed, rightSpeed);
-
-  // }
-
-  // public void autoStop(){
-
-  //   westCoastDrive.tankDrive(0, 0);
-  // }
-
   public void runTurret(double speed){
 
     turret.set(speed);

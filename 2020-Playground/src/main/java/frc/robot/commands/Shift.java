@@ -7,24 +7,17 @@
 
 package frc.robot.commands;
 
-import static frc.robot.Constants.*;
-import static frc.robot.Constants.DrivetrainConstants.*;
-
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.WestCoastDrivetrain;
+import frc.robot.subsystems.Shifter;
 
-public class DriveWithXboxCommand extends CommandBase {
+public class Shift extends CommandBase {
   
-  private final WestCoastDrivetrain drivetrain;
+  private final Shifter shifter;
   
-  private final XboxController xbox = new XboxController(XBOX_PORT);
-  
-  public DriveWithXboxCommand(WestCoastDrivetrain drive) {
+  public Shift(Shifter shift) {
 
-    drivetrain = drive;
-    addRequirements(drivetrain);
+    shifter = shift;
+    addRequirements(shifter);
 
   }
 
@@ -37,7 +30,11 @@ public class DriveWithXboxCommand extends CommandBase {
   @Override
   public void execute() {
 
-    drivetrain.drive(SPEED_MAX * xbox.getX(Hand.kLeft), SPEED_MAX * xbox.getY(Hand.kLeft), SPEED_MAX * xbox.getX(Hand.kRight), SPEED_MAX * xbox.getY(Hand.kRight));
+    if(shifter.getGear().equals("High")){
+      shifter.shiftDown();
+    } else {
+      shifter.shiftUp();
+    }
     
   }
 
@@ -49,6 +46,6 @@ public class DriveWithXboxCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

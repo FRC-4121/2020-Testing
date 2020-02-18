@@ -15,6 +15,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -47,14 +48,13 @@ public class RobotContainer {
   private final GenericJoysticksCommand genericJoysticksCommand = new GenericJoysticksCommand(genericSubsystem);
   private final ShootWithJoysticksCommand shootCommand = new ShootWithJoysticksCommand(shooter);
   private final SpinTurret turretCommand = new SpinTurret(turret);
-  private final ShiftUp shiftUp = new ShiftUp(shifter);
-  private final ShiftDown shiftDown = new ShiftDown(shifter);
+  private final Shift shift = new Shift(shifter);
   private final TestIntake in = new TestIntake(genericSubsystem, -.5);
   private final TestIntake out = new TestIntake(genericSubsystem, 1.0);
   private final TestIntake stopIntake = new TestIntake(genericSubsystem, 0);
 
-  // private final CameraServer camServer;
-  // private final UsbCamera driveCam;
+  private final CameraServer camServer;
+  private final UsbCamera driveCam;
 
   private final Joystick leftJoy;
   private final Joystick rightJoy;
@@ -62,23 +62,23 @@ public class RobotContainer {
 
   private JoystickButton inButton;
   private JoystickButton outButton;
-  private JoystickButton shiftUpButton;
-  private JoystickButton shiftDownButton;
+  private JoystickButton shiftButton;
+
 
   private final NetworkTableQuerier ntables = new NetworkTableQuerier();
-  private final CameraThreader cameraThreader = new CameraThreader();
+  // private final CameraThreader cameraThreader = new CameraThreader();
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     
-    // camServer = CameraServer.getInstance();
-    // driveCam = camServer.startAutomaticCapture("Driver View", 0);
-    // driveCam.setResolution(160, 120);
-    // driveCam.setFPS(15);
-    // driveCam.setBrightness(50);
-    cameraThreader.start();
+    camServer = CameraServer.getInstance();
+    driveCam = camServer.startAutomaticCapture("Driver View", 0);
+    driveCam.setResolution(160, 120);
+    driveCam.setFPS(15);
+    driveCam.setBrightness(50);
+    // cameraThreader.start();
 
     leftJoy = new Joystick(LEFT_JOY_PORT);
     rightJoy = new Joystick(RIGHT_JOY_PORT);
@@ -94,9 +94,6 @@ public class RobotContainer {
     //shooter.setDefaultCommand(shootCommand);
     //turret.setDefaultCommand(turretCommand);
 
-    SmartDashboard.putBoolean("High Gear?", false);
-    SmartDashboard.putBoolean("Target Lock", false);
-    //SmartDashboard.putBoolean("Target Lock", turret.getTargetLock());
 
     // Configure the button bindings
     configureButtonBindings();
@@ -113,11 +110,9 @@ public class RobotContainer {
     inButton = new JoystickButton(xbox, 5);
     outButton = new JoystickButton(xbox, 6);
 
-    //shiftUpButton = new JoystickButton(rightJoy, 2);
-    //shiftDownButton = new JoystickButton(leftJoy, 2);
+    shiftButton = new JoystickButton(rightJoy, 2);
 
-    //shiftUpButton.whenPressed(shiftUp);
-    //shiftDownButton.whenPressed(shiftDown);
+    shiftButton.whenPressed(shift);
 
     inButton.whileHeld(in);
     inButton.whenReleased(stopIntake);
@@ -125,11 +120,6 @@ public class RobotContainer {
     outButton.whenReleased(stopIntake);
 
 
-  }
-
-  public boolean getTargetLock(){
-
-    return turret.getTargetLock();
   }
 
   /**

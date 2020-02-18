@@ -14,15 +14,13 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANPIDController;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.extraClasses.UltrasonicSensor;
 
 public class ShooterSameShaft extends SubsystemBase {
   
@@ -39,6 +37,9 @@ public class ShooterSameShaft extends SubsystemBase {
   //private final CANEncoder shooter1Encoder = shooter1.getEncoder();
   //private final CANEncoder shooter2Encoder = shooter2.getEncoder();
 
+  
+  ///private final DigitalInput photoSensor = new DigitalInput(2);
+  private final UltrasonicSensor ultra1 = new UltrasonicSensor(0);
 
   public ShooterSameShaft() {
 
@@ -52,6 +53,9 @@ public class ShooterSameShaft extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    //SmartDashboard.putBoolean("PhotoSensor", photoSensor.get());
+
+    SmartDashboard.putNumber("Ultra Distance", ultra1.getDistance());
   }
 
   public void runShooter(double speed){

@@ -11,23 +11,25 @@ import static frc.robot.Constants.DrivetrainConstants.*;
 import static frc.robot.Constants.ShooterConstants.*;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.NetworkTableValues;
+
+import frc.robot.extraClasses.NetworkTableQuerier;
 import frc.robot.extraClasses.PIDControl;
 import frc.robot.subsystems.Turret;
 
 public class TurretTargetLock extends CommandBase {
   
   private final Turret turret;
-  private final NetworkTableValues ntables = new NetworkTableValues();
+  private final NetworkTableQuerier ntables;
 
   private double angleCorrection;
   private double ballAngle;
   
   private PIDControl pidAngle;
 
-  public TurretTargetLock(Turret turretSystem) {
+  public TurretTargetLock(Turret turretSystem, NetworkTableQuerier ntable) {
 
     turret = turretSystem;
+    ntables = ntable;
 
     addRequirements(turret);
 
@@ -45,9 +47,9 @@ public class TurretTargetLock extends CommandBase {
   @Override
   public void execute() {
 
-    if (turret.getTargetLock() && ntables.foundBall.getBoolean(false)){
+    if (turret.getTargetLock() && ntables.getVisionBoolean("FoundBall")){
       
-      ballAngle = ntables.ballAngle.getDouble(0);
+      ballAngle = ntables.getVisionDouble("BallAngle");
       angleCorrection = pidAngle.run(ballAngle, 0);
 
       if(Math.abs(ballAngle) <= 2){

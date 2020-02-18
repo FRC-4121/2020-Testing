@@ -15,15 +15,16 @@ public class NetworkTableQuerier implements Runnable{
     private static NetworkTable navxTable;
 
     private static NetworkTableEntry robotStop;
-    private static NetworkTableEntry writeVideo;
-    private static NetworkTableEntry ballX;
-    private static NetworkTableEntry ballY;
-    private static NetworkTableEntry ballRadius;
+    private static NetworkTableEntry zeroGyro;
+    private static NetworkTableEntry piGyroAngle;
     private static NetworkTableEntry ballDistance;
     private static NetworkTableEntry ballAngle;
-    private static NetworkTableEntry ballOffset;
     private static NetworkTableEntry ballScreenPercent;
     private static NetworkTableEntry foundBall;
+    private static NetworkTableEntry foundTape;
+    private static NetworkTableEntry tapeDistance;
+    private static NetworkTableEntry tapeOffset;
+    private static NetworkTableEntry targetLock;
 
     public NetworkTableQuerier(){
 
@@ -49,7 +50,13 @@ public class NetworkTableQuerier implements Runnable{
 
         networkTableInstance = NetworkTableInstance.getDefault();
         visionTable = networkTableInstance.getTable("vision");
-        //navxTable = networkTableInstance.getTable("navx");
+        navxTable = networkTableInstance.getTable("navx");
+
+        robotStop = visionTable.getEntry("RobotStop");
+        zeroGyro = navxTable.getEntry("ZeroGyro");
+
+        robotStop.setNumber(0);
+        zeroGyro.setNumber(0);
 
         queryNetworkTables();
 
@@ -59,35 +66,66 @@ public class NetworkTableQuerier implements Runnable{
     private void queryNetworkTables(){
 
         robotStop = visionTable.getEntry("RobotStop");
-        writeVideo = visionTable.getEntry("WriteVideo");
-        ballX = visionTable.getEntry("BallX");
-        ballY = visionTable.getEntry("BallY");
-        ballRadius = visionTable.getEntry("BallRadius");
+        zeroGyro = navxTable.getEntry("ZeroGyro");
+
+        piGyroAngle = navxTable.getEntry("GyroAngle");
+
         ballDistance = visionTable.getEntry("BallDistance");
         ballAngle = visionTable.getEntry("BallAngle");
-        ballOffset = visionTable.getEntry("BallOffset");
         ballScreenPercent = visionTable.getEntry("BallScreenPercent");
         foundBall = visionTable.getEntry("FoundBall");
-    
+
+        foundTape = visionTable.getEntry("FoundTape");
+        targetLock = visionTable.getEntry("TargetLock");
+        tapeDistance = visionTable.getEntry("TapeDistance");
+        tapeOffset = visionTable.getEntry("TapeOffset");
     }
 
     /*
-     *@param entry The ID of the NetworkTables entry to return
-     *@return the double value of the NetworkTables entry chosen; an error will be returned if entry is not a double  
+     * @param entry The ID of the NetworkTables entry to return
+     * @return the double value of the NetworkTables entry chosen; an error will be returned if entry is not a double 
+     * 
+     * List of available entries:
+     * "BallDistance"
+     * "BallAngle"
+     * "BallScreenPercent"
+     * "TapeOffset"
+     * "TapeDistance" 
      */
 
-    public static synchronized double getVisionDouble(String entry){
+    public synchronized double getVisionDouble(String entry){
 
         return visionTable.getEntry(entry).getDouble(0);
     }
 
     /*
-     *@param entry The ID of the NetworkTables entry to return
-     *@return the boolean value of the NetworkTables entry chosen; an error will be returned if entry is not a boolean  
+     * @param entry The ID of the NetworkTables entry to return
+     * @return the boolean value of the NetworkTables entry chosen; an error will be returned if entry is not a boolean 
+     * 
+     * List of available entries:
+     * "FoundBall"
+     * "FoundTape"
+     * "TargetLock" 
      */
-    public static synchronized boolean getVisionBoolean(String entry){
+    public synchronized boolean getVisionBoolean(String entry){
 
         return visionTable.getEntry(entry).getBoolean(false);
+    }
+
+    public synchronized double getPiGyro(){
+
+        return navxTable.getEntry("GyroAngle").getDouble(0);
+    }
+
+
+    public synchronized void robotStop(){
+
+        robotStop.setNumber(1);
+    }
+
+    public synchronized void zeroPiGyro(){
+
+        zeroGyro.setNumber(1);
     }
 
 }
