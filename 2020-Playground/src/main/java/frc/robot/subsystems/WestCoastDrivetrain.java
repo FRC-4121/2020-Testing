@@ -45,7 +45,7 @@ public class WestCoastDrivetrain extends SubsystemBase {
   }
 
   //This method initializes the entire drivetrain
-  public void initDrivetrain() {
+  private void initDrivetrain() {
 
     //Note that current practice chassis has only two motors, no encoders.
 
@@ -172,6 +172,11 @@ public class WestCoastDrivetrain extends SubsystemBase {
   public void zeroGyro(){
 
     rioGyro.reset();
+  }
+
+  public void invertDirection(){
+
+    DIRECTION_MULTIPLIER *= -1;
   }
  
 }

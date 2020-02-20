@@ -8,6 +8,7 @@
 package frc.robot;
 
 import static frc.robot.Constants.*;
+import static frc.robot.Constants.DrivetrainConstants.*;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -49,6 +51,7 @@ public class RobotContainer {
   private final ShootWithJoysticksCommand shootCommand = new ShootWithJoysticksCommand(shooter);
   private final SpinTurret turretCommand = new SpinTurret(turret);
   private final Shift shift = new Shift(shifter);
+  private final OperateIntake operateIntake = new OperateIntake(shifter);
   private final TestIntake in = new TestIntake(genericSubsystem, -.5);
   private final TestIntake out = new TestIntake(genericSubsystem, 1.0);
   private final TestIntake stopIntake = new TestIntake(genericSubsystem, 0);
@@ -63,6 +66,10 @@ public class RobotContainer {
   private JoystickButton inButton;
   private JoystickButton outButton;
   private JoystickButton shiftButton;
+  private JoystickButton invertDirection;
+  private JoystickButton extendRetractPneumaticIntake;
+  private JoystickButton extend;
+  private JoystickButton retract;
 
 
   private final NetworkTableQuerier ntables = new NetworkTableQuerier();
@@ -110,9 +117,19 @@ public class RobotContainer {
     inButton = new JoystickButton(xbox, 5);
     outButton = new JoystickButton(xbox, 6);
 
-    shiftButton = new JoystickButton(rightJoy, 2);
+    shiftButton = new JoystickButton(xbox, 1);
+    extendRetractPneumaticIntake = new JoystickButton(rightJoy, 1);
+    invertDirection = new JoystickButton(xbox, 2);
+
+    retract = new JoystickButton(rightJoy, 7);
+    extend = new JoystickButton(rightJoy, 8);
+    
 
     shiftButton.whenPressed(shift);
+    extendRetractPneumaticIntake.whenPressed(operateIntake);
+    invertDirection.whenPressed(new InstantCommand(drivetrain::invertDirection, drivetrain));
+    retract.whenPressed(new InstantCommand(shifter::retractIntake, shifter));
+    extend.whenPressed(new InstantCommand(shifter::extendIntake, shifter));
 
     inButton.whileHeld(in);
     inButton.whenReleased(stopIntake);

@@ -19,7 +19,7 @@ public final class Constants {
 
     //Talon IDs for all subsystems
     //Single generic controller for all types
-    public static final int GENERIC_TALON_1 = -1;
+    public static final int GENERIC_TALON_1 = 5;
     public static final int GENERIC_FALCON_1 = -1;
     public static final int GENERIC_SPARK_1 = 1;
     
@@ -38,7 +38,7 @@ public final class Constants {
     public static final int SLAVE2_LEFT_MOTOR = 4;
     public static final int MASTER_RIGHT_MOTOR = 3;
     public static final int SLAVE1_RIGHT_MOTOR = 2;
-    public static final int SLAVE2_RIGHT_MOTOR = 5;
+    public static final int SLAVE2_RIGHT_MOTOR = 8;
     
     //Chassis #2
     // public static final int MASTER_LEFT_MOTOR = 4;
@@ -125,8 +125,9 @@ public final class Constants {
         public static final double kD_Speed_High = 0.0037;
 
         //Shifter solenoid IDs
-        public static final int[] LEFT_SHIFTER_SOLENOID = {0, 1};
+        public static final int[] LEFT_SHIFTER_SOLENOID = {4, 5};
         public static final int[] RIGHT_SHIFTER_SOLENOID = {2, 3};
+        public static final int[] INTAKE_SOLENOID = {0, 1};
 
         //Miscellaneous
         public static int DIRECTION_MULTIPLIER = -1;
