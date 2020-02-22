@@ -24,22 +24,12 @@ import frc.robot.extraClasses.UltrasonicSensor;
 
 public class ShooterSameShaft extends SubsystemBase {
   
-  //private final CANSparkMax shooter1 = new CANSparkMax(SHOOTER_MASTER, MotorType.kBrushless);
-  //private final CANSparkMax shooter2 = new CANSparkMax(SHOOTER_SLAVE, MotorType.kBrushless);
   private final WPI_TalonFX shooter1 = new WPI_TalonFX(SHOOTER_MASTER);
   private final WPI_TalonFX shooter2 = new WPI_TalonFX(SHOOTER_SLAVE);
 
   private final WPI_TalonSRX turret = new WPI_TalonSRX(TURRET);
   //private final Encoder turretEncoder = new Encoder(TURRET_ENCODER_1, TURRET_ENCODER_2);
  
-  //private final CANPIDController shooter1PID = shooter1.getPIDController();
-  
-  //private final CANEncoder shooter1Encoder = shooter1.getEncoder();
-  //private final CANEncoder shooter2Encoder = shooter2.getEncoder();
-
-  
-  ///private final DigitalInput photoSensor = new DigitalInput(2);
-  private final UltrasonicSensor ultra1 = new UltrasonicSensor(0);
 
   public ShooterSameShaft() {
 
@@ -52,10 +42,7 @@ public class ShooterSameShaft extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    //SmartDashboard.putBoolean("PhotoSensor", photoSensor.get());
 
-    SmartDashboard.putNumber("Ultra Distance", ultra1.getDistance());
   }
 
   public void runShooter(double speed){

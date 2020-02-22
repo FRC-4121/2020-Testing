@@ -39,13 +39,11 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final WestCoastDrivetrain drivetrain = new WestCoastDrivetrain();
-  // private final Shooter shooter = new Shooter();
   private final ShooterSameShaft shooter = new ShooterSameShaft();
   private final Shifter shifter = new Shifter();
   private final Turret turret = new Turret();
   private final GenericSubsystem genericSubsystem = new GenericSubsystem();
 
-  private final DriveWithJoysticksCommand joysticksCommand = new DriveWithJoysticksCommand(drivetrain);
   private final DriveWithXboxCommand xboxCommand = new DriveWithXboxCommand(drivetrain);
   private final GenericJoysticksCommand genericJoysticksCommand = new GenericJoysticksCommand(genericSubsystem);
   private final ShootWithJoysticksCommand shootCommand = new ShootWithJoysticksCommand(shooter);
@@ -92,7 +90,6 @@ public class RobotContainer {
     xbox = new XboxController(XBOX_PORT);
 
     //Set default drivetrain command to DriveWithJoysticks or xbox
-    //drivetrain.setDefaultCommand(joysticksCommand);
     drivetrain.setDefaultCommand(xboxCommand);
     
     //For testing purposes, this will control simple one- or two-motor subsystems.

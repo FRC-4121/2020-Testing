@@ -32,7 +32,7 @@ public class Turret extends SubsystemBase {
   public Turret() {
 
     //1-inch sprocket
-    turretEncoder.setDistancePerPulse(1 / kTurretEncoderPPR);
+    turretEncoder.setDistancePerPulse(1 * Math.PI / kTurretEncoderPPR);
 
   }
 

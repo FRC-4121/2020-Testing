@@ -40,11 +40,14 @@ public final class Constants {
     public static final int SLAVE1_RIGHT_MOTOR = 2;
     public static final int SLAVE2_RIGHT_MOTOR = 8;
     
-    //Chassis #2
-    // public static final int MASTER_LEFT_MOTOR = 4;
-    // public static final int SLAVE1_LEFT_MOTOR = 2;
-    // public static final int MASTER_RIGHT_MOTOR = 0;
-    // public static final int SLAVE1_RIGHT_MOTOR = 1;
+    //Chassis #2 (two-motor drive)
+    public static final int TMD_MASTER_LEFT_MOTOR = 4;
+    public static final int TMD_SLAVE_LEFT_MOTOR = 2;
+    public static final int TMD_MASTER_RIGHT_MOTOR = 0;
+    public static final int TMD_SLAVE_RIGHT_MOTOR = 1;
+
+    //Control flag for easily altering code for the two practice chassis
+    public static final boolean USE_3_MOTORS = true;
 
     //Other Talons
     public static final int CLIMBER_MOTOR = -1;
@@ -54,6 +57,12 @@ public final class Constants {
     public static final int LEFT_JOY_PORT = 0;
     public static final int RIGHT_JOY_PORT = 1;
     public static final int XBOX_PORT = 2;
+
+    //Digital Input ports
+    public static final int TURRET_ENCODER_1 = -1;
+    public static final int TURRET_ENCODER_2 = -1;
+    public static final int TURRET_LIMIT_SWITCH = -1;
+    public static final int PHOTOELECTRIC_1 = -1;
 
     public static class ShooterConstants {
 

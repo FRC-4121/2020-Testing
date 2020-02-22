@@ -47,30 +47,53 @@ public class WestCoastDrivetrain extends SubsystemBase {
   //This method initializes the entire drivetrain
   private void initDrivetrain() {
 
-    //Note that current practice chassis has only two motors, no encoders.
+    if(USE_3_MOTORS){
+      //Initialize left side motors
+      leftMotorMaster = new WPI_TalonSRX(MASTER_LEFT_MOTOR);
+      leftMotorSlave1 = new WPI_TalonSRX(SLAVE1_LEFT_MOTOR);
+      leftMotorSlave2 = new WPI_TalonSRX(SLAVE2_LEFT_MOTOR);
+      leftMotorGroup = new SpeedControllerGroup(leftMotorMaster, leftMotorSlave1, leftMotorSlave2);
+    
+      //Initialize right side motors
+      rightMotorMaster = new WPI_TalonSRX(MASTER_RIGHT_MOTOR);
+      rightMotorSlave1 = new WPI_TalonSRX(SLAVE1_RIGHT_MOTOR);
+      rightMotorSlave2 = new WPI_TalonSRX(SLAVE2_RIGHT_MOTOR);
+      rightMotorGroup = new SpeedControllerGroup(rightMotorMaster, rightMotorSlave1, rightMotorSlave2);
+    
+      //Initialize robot drive train
+      westCoastDrive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
 
-    //Initialize left side motors
-    leftMotorMaster = new WPI_TalonSRX(MASTER_LEFT_MOTOR);
-    leftMotorSlave1 = new WPI_TalonSRX(SLAVE1_LEFT_MOTOR);
-    leftMotorSlave2 = new WPI_TalonSRX(SLAVE2_LEFT_MOTOR);
-    leftMotorGroup = new SpeedControllerGroup(leftMotorMaster, leftMotorSlave1, leftMotorSlave2);
-  
-    //Initialize right side motors
-    rightMotorMaster = new WPI_TalonSRX(MASTER_RIGHT_MOTOR);
-    rightMotorSlave1 = new WPI_TalonSRX(SLAVE1_RIGHT_MOTOR);
-    rightMotorSlave2 = new WPI_TalonSRX(SLAVE2_RIGHT_MOTOR);
-    rightMotorGroup = new SpeedControllerGroup(rightMotorMaster, rightMotorSlave1, rightMotorSlave2);
-  
-    //Initialize robot drive train
-    westCoastDrive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
+      //Set all talons to brake mode
+      leftMotorMaster.setNeutralMode(NeutralMode.Brake);
+      leftMotorSlave1.setNeutralMode(NeutralMode.Brake);
+      leftMotorSlave2.setNeutralMode(NeutralMode.Brake);
+      rightMotorMaster.setNeutralMode(NeutralMode.Brake);
+      rightMotorSlave1.setNeutralMode(NeutralMode.Brake);
+      rightMotorSlave2.setNeutralMode(NeutralMode.Brake);
 
-    //Set all talons to brake mode
-    leftMotorMaster.setNeutralMode(NeutralMode.Brake);
-    leftMotorSlave1.setNeutralMode(NeutralMode.Brake);
-    leftMotorSlave2.setNeutralMode(NeutralMode.Brake);
-    rightMotorMaster.setNeutralMode(NeutralMode.Brake);
-    rightMotorSlave1.setNeutralMode(NeutralMode.Brake);
-    rightMotorSlave2.setNeutralMode(NeutralMode.Brake);
+    } else {
+
+      //Initialize left side motors
+      leftMotorMaster = new WPI_TalonSRX(TMD_MASTER_LEFT_MOTOR);
+      leftMotorSlave1 = new WPI_TalonSRX(TMD_SLAVE_LEFT_MOTOR);
+      leftMotorGroup = new SpeedControllerGroup(leftMotorMaster, leftMotorSlave1);
+    
+      //Initialize right side motors
+      rightMotorMaster = new WPI_TalonSRX(TMD_MASTER_RIGHT_MOTOR);
+      rightMotorSlave1 = new WPI_TalonSRX(TMD_SLAVE_RIGHT_MOTOR);
+      rightMotorGroup = new SpeedControllerGroup(rightMotorMaster, rightMotorSlave1);
+    
+      //Initialize robot drive train
+      westCoastDrive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
+
+      //Set all talons to brake mode
+      leftMotorMaster.setNeutralMode(NeutralMode.Brake);
+      leftMotorSlave1.setNeutralMode(NeutralMode.Brake);
+      rightMotorMaster.setNeutralMode(NeutralMode.Brake);
+      rightMotorSlave1.setNeutralMode(NeutralMode.Brake);
+
+
+    }
 
     //Configure encoders
     //left motor
