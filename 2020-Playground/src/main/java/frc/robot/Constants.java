@@ -30,7 +30,7 @@ public final class Constants {
     //Shooter Talons
     public static final int SHOOTER_SLAVE = -1;
     public static final int SHOOTER_MASTER = -1;
-    public static final int TURRET = -1;
+    public static final int TURRET = 1;
 
     //Drivetrain Talons
     public static final int MASTER_LEFT_MOTOR = 7;
@@ -44,7 +44,7 @@ public final class Constants {
     public static final int TMD_MASTER_LEFT_MOTOR = 4;
     public static final int TMD_SLAVE_LEFT_MOTOR = 2;
     public static final int TMD_MASTER_RIGHT_MOTOR = 0;
-    public static final int TMD_SLAVE_RIGHT_MOTOR = 1;
+    public static final int TMD_SLAVE_RIGHT_MOTOR = 3;//1;
 
     //Control flag for easily altering code for the two practice chassis
     public static final boolean USE_3_MOTORS = true;
@@ -59,9 +59,9 @@ public final class Constants {
     public static final int XBOX_PORT = 2;
 
     //Digital Input ports
-    public static final int TURRET_ENCODER_1 = -1;
-    public static final int TURRET_ENCODER_2 = -1;
-    public static final int TURRET_LIMIT_SWITCH = -1;
+    //public static final int TURRET_ENCODER_1 = -1;
+    //public static final int TURRET_ENCODER_2 = -1;
+    public static final int TURRET_LIMIT_SWITCH = 2;
     public static final int PHOTOELECTRIC_1 = -1;
 
     public static class ShooterConstants {
@@ -79,7 +79,7 @@ public final class Constants {
         public static final int TURRET_ENCODER_2 = 1;
 
         //Turret slow-down factor
-        public static final double kTurret_Speed = .5;
+        public static final double kTurret_Speed = .8;
 
         //Configuration constants
         public static final double kRPS_Tolerance = 0;
@@ -91,11 +91,14 @@ public final class Constants {
         public static final double kEncoderPPR = 4096; //pulses per revolution
         public static final double kTalonFXPPR = 2048;
         public static final double kTurretEncoderPPR = 7;
+        public static final double kTurretGearReduction = 71;
+        public static final double kTurretSprocketDia = 1;
         public static final double kEncoderDistancePerPulse = kShooterWheelDiameter * Math.PI / kEncoderPPR; 
 
         public static final double kShooterSpeed = 1.0;
 
         public static final double TURRET_SPEED = .8;
+        public static final double kTurretDiskDia = 13.75;
         
     }
 
@@ -134,9 +137,9 @@ public final class Constants {
         public static final double kD_Speed_High = 0.0037;
 
         //Shifter solenoid IDs
-        public static final int[] LEFT_SHIFTER_SOLENOID = {4, 5};
+        public static final int[] LEFT_SHIFTER_SOLENOID = {0, 1};
         public static final int[] RIGHT_SHIFTER_SOLENOID = {2, 3};
-        public static final int[] INTAKE_SOLENOID = {0, 1};
+        public static final int[] INTAKE_SOLENOID = {4, 5};
 
         //Miscellaneous
         public static int DIRECTION_MULTIPLIER = -1;

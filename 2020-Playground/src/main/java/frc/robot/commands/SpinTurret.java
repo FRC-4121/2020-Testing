@@ -12,17 +12,18 @@ import static frc.robot.Constants.ShooterConstants.*;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.ShooterSameShaft;
 import frc.robot.subsystems.Turret;
 
 public class SpinTurret extends CommandBase {
   
-  private final Turret turret;
+  private final ShooterSameShaft turret;
 
   private final Joystick rightJoy = new Joystick(RIGHT_JOY_PORT);
 
-  public SpinTurret(Turret turretSubsystem) {
+  public SpinTurret(ShooterSameShaft subsystem) {
 
-    turret = turretSubsystem;
+    turret = subsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(turret);
@@ -37,7 +38,7 @@ public class SpinTurret extends CommandBase {
   @Override
   public void execute() {
 
-    turret.runTurret(rightJoy.getY() * kTurret_Speed);
+    turret.rotateShooter(rightJoy.getY() * kTurret_Speed);
   }
 
   // Called once the command ends or is interrupted.

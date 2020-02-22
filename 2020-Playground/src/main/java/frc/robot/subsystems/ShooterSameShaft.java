@@ -17,6 +17,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -28,7 +29,13 @@ public class ShooterSameShaft extends SubsystemBase {
   private final WPI_TalonFX shooter2 = new WPI_TalonFX(SHOOTER_SLAVE);
 
   private final WPI_TalonSRX turret = new WPI_TalonSRX(TURRET);
-  //private final Encoder turretEncoder = new Encoder(TURRET_ENCODER_1, TURRET_ENCODER_2);
+
+  private final Encoder turretEncoder = new Encoder(TURRET_ENCODER_1, TURRET_ENCODER_2);
+  private final DigitalInput turretLimit = new DigitalInput(TURRET_LIMIT_SWITCH);
+
+  private final PIDController turretPID = new PIDController(kP_Turret, kI_Turret, kD_Turret);
+
+  private boolean resetEncoder = false;
  
 
   public ShooterSameShaft() {
@@ -37,12 +44,34 @@ public class ShooterSameShaft extends SubsystemBase {
 
     shooter1.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, kPIDLoopIdx, kTimeoutMs);
 
+    //theta (radians) = arclength / radius
+    turretEncoder.setDistancePerPulse(-kTurretSprocketDia * 360 / (kTurretEncoderPPR * kTurretGearReduction * kTurretDiskDia/2));
+
+    turretPID.setTolerance(5, 10);
 
   }
 
   @Override
   public void periodic() {
 
+    SmartDashboard.putNumber("Encoder Distance", turretEncoder.getDistance());
+    SmartDashboard.putBoolean("Turret Limit", turretLimit.get());
+
+    if (turretLimit.get() == false)
+    {
+      //...and the reset flag is false...
+      if(!resetEncoder)
+      {
+        //...reset the encoder and lock
+        turretEncoder.reset();
+        turret.set(turretPID.calculate(turretEncoder.getDistance(), 0));
+        resetEncoder = true;
+      }
+    }
+    else //if the limit switch moves away, make it reset the next time it comes down.
+    {
+      resetEncoder = false;
+    }
   }
 
   public void runShooter(double speed){
@@ -69,6 +98,6 @@ public class ShooterSameShaft extends SubsystemBase {
   public void rotateShooter(double speed){
 
     turret.set(speed);
-
   }
+ 
 }

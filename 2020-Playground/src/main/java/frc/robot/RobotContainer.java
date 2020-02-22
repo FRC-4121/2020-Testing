@@ -41,13 +41,13 @@ public class RobotContainer {
   private final WestCoastDrivetrain drivetrain = new WestCoastDrivetrain();
   private final ShooterSameShaft shooter = new ShooterSameShaft();
   private final Shifter shifter = new Shifter();
-  private final Turret turret = new Turret();
+  //private final Turret turret = new Turret();
   private final GenericSubsystem genericSubsystem = new GenericSubsystem();
 
   private final DriveWithXboxCommand xboxCommand = new DriveWithXboxCommand(drivetrain);
   private final GenericJoysticksCommand genericJoysticksCommand = new GenericJoysticksCommand(genericSubsystem);
   private final ShootWithJoysticksCommand shootCommand = new ShootWithJoysticksCommand(shooter);
-  private final SpinTurret turretCommand = new SpinTurret(turret);
+  private final SpinTurret turretCommand = new SpinTurret(shooter);
   private final Shift shift = new Shift(shifter);
   private final OperateIntake operateIntake = new OperateIntake(shifter);
   private final TestIntake in = new TestIntake(genericSubsystem, -.5);
@@ -90,13 +90,13 @@ public class RobotContainer {
     xbox = new XboxController(XBOX_PORT);
 
     //Set default drivetrain command to DriveWithJoysticks or xbox
-    drivetrain.setDefaultCommand(xboxCommand);
+    //drivetrain.setDefaultCommand(xboxCommand);
     
     //For testing purposes, this will control simple one- or two-motor subsystems.
-    genericSubsystem.setDefaultCommand(genericJoysticksCommand);
+    //genericSubsystem.setDefaultCommand(genericJoysticksCommand);
     
     //shooter.setDefaultCommand(shootCommand);
-    //turret.setDefaultCommand(turretCommand);
+    shooter.setDefaultCommand(turretCommand);
 
 
     // Configure the button bindings
