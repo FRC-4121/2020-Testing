@@ -43,6 +43,7 @@ public class RobotContainer {
   private final Shifter shifter = new Shifter();
   //private final Turret turret = new Turret();
   private final GenericSubsystem genericSubsystem = new GenericSubsystem();
+  private final TestClimberPID testClimberPID = new TestClimberPID();
 
   private final DriveWithXboxCommand xboxCommand = new DriveWithXboxCommand(drivetrain);
   private final GenericJoysticksCommand genericJoysticksCommand = new GenericJoysticksCommand(genericSubsystem);
@@ -93,10 +94,10 @@ public class RobotContainer {
     //drivetrain.setDefaultCommand(xboxCommand);
     
     //For testing purposes, this will control simple one- or two-motor subsystems.
-    //genericSubsystem.setDefaultCommand(genericJoysticksCommand);
+    genericSubsystem.setDefaultCommand(genericJoysticksCommand);
     
     //shooter.setDefaultCommand(shootCommand);
-    shooter.setDefaultCommand(turretCommand);
+    //shooter.setDefaultCommand(turretCommand);
 
 
     // Configure the button bindings

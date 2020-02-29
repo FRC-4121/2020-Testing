@@ -40,7 +40,7 @@ public class ShooterSameShaft extends SubsystemBase {
  
 
   public ShooterSameShaft() {
-
+    
     shooter2.setInverted(InvertType.OpposeMaster);
 
     shooter1.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, kPIDLoopIdx, kTimeoutMs);
