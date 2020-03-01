@@ -10,9 +10,13 @@ package frc.robot.subsystems;
 import static frc.robot.Constants.*;
 import static frc.robot.Constants.DrivetrainConstants.*;
 
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+//import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+//import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+//import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+//import com.revrobotics.CANSparkMax;
+//import com.revrobotics.CANSparkMax.IdleMode;
+//import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -24,14 +28,24 @@ public class WestCoastDrivetrain extends SubsystemBase {
 
   private final ADXRS450_Gyro rioGyro = new ADXRS450_Gyro();
   
-  WPI_TalonSRX leftMotorMaster;
-  WPI_TalonSRX leftMotorSlave1;
-  WPI_TalonSRX leftMotorSlave2;
+  //WPI_TalonSRX leftMotorMaster;
+  //WPI_TalonSRX leftMotorSlave1;
+  //WPI_TalonSRX leftMotorSlave2;
+  //CANSparkMax leftMotorMaster;
+  //CANSparkMax leftMotorSlave1;
+  //CANSparkMax leftMotorSlave2;
+  private WPI_TalonFX leftMotorMaster;
+  private WPI_TalonFX leftMotorSlave1;
   SpeedControllerGroup leftMotorGroup;
 
-  WPI_TalonSRX rightMotorMaster;
-  WPI_TalonSRX rightMotorSlave1;
-  WPI_TalonSRX rightMotorSlave2;
+  //WPI_TalonSRX rightMotorMaster;
+  //WPI_TalonSRX rightMotorSlave1;
+  //WPI_TalonSRX rightMotorSlave2;
+  //CANSparkMax rightMotorMaster;
+  //CANSparkMax rightMotorSlave1;
+  //CANSparkMax rightMotorSlave2;
+  private WPI_TalonFX rightMotorMaster;
+  private WPI_TalonFX rightMotorSlave1;
   SpeedControllerGroup rightMotorGroup;
 
   // Initialize robot drive train
@@ -49,48 +63,52 @@ public class WestCoastDrivetrain extends SubsystemBase {
 
     if(USE_3_MOTORS){
       //Initialize left side motors
-      leftMotorMaster = new WPI_TalonSRX(MASTER_LEFT_MOTOR);
-      leftMotorSlave1 = new WPI_TalonSRX(SLAVE1_LEFT_MOTOR);
-      leftMotorSlave2 = new WPI_TalonSRX(SLAVE2_LEFT_MOTOR);
-      leftMotorGroup = new SpeedControllerGroup(leftMotorMaster, leftMotorSlave1, leftMotorSlave2);
-    
-      //Initialize right side motors
-      rightMotorMaster = new WPI_TalonSRX(MASTER_RIGHT_MOTOR);
-      rightMotorSlave1 = new WPI_TalonSRX(SLAVE1_RIGHT_MOTOR);
-      rightMotorSlave2 = new WPI_TalonSRX(SLAVE2_RIGHT_MOTOR);
-      rightMotorGroup = new SpeedControllerGroup(rightMotorMaster, rightMotorSlave1, rightMotorSlave2);
-    
-      //Initialize robot drive train
-      westCoastDrive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
-
-      //Set all talons to brake mode
-      leftMotorMaster.setNeutralMode(NeutralMode.Brake);
-      leftMotorSlave1.setNeutralMode(NeutralMode.Brake);
-      leftMotorSlave2.setNeutralMode(NeutralMode.Brake);
-      rightMotorMaster.setNeutralMode(NeutralMode.Brake);
-      rightMotorSlave1.setNeutralMode(NeutralMode.Brake);
-      rightMotorSlave2.setNeutralMode(NeutralMode.Brake);
-
-    } else {
-
-      //Initialize left side motors
-      leftMotorMaster = new WPI_TalonSRX(TMD_MASTER_LEFT_MOTOR);
-      leftMotorSlave1 = new WPI_TalonSRX(TMD_SLAVE_LEFT_MOTOR);
+      //leftMotorMaster = new CANSparkMax(MASTER_LEFT_MOTOR, MotorType.kBrushless); //new WPI_TalonSRX(MASTER_LEFT_MOTOR);
+      //leftMotorSlave1 = new CANSparkMax(SLAVE1_LEFT_MOTOR, MotorType.kBrushless); //new WPI_TalonSRX(SLAVE1_LEFT_MOTOR);
+      //leftMotorSlave2 = new CANSparkMax(SLAVE2_LEFT_MOTOR, MotorType.kBrushless); //new WPI_TalonSRX(SLAVE2_LEFT_MOTOR);
+      leftMotorMaster = new WPI_TalonFX(MASTER_LEFT_MOTOR);
+      leftMotorSlave1 = new WPI_TalonFX(SLAVE1_LEFT_MOTOR);
       leftMotorGroup = new SpeedControllerGroup(leftMotorMaster, leftMotorSlave1);
     
       //Initialize right side motors
-      rightMotorMaster = new WPI_TalonSRX(TMD_MASTER_RIGHT_MOTOR);
-      rightMotorSlave1 = new WPI_TalonSRX(TMD_SLAVE_RIGHT_MOTOR);
+      //rightMotorMaster = new CANSparkMax(MASTER_RIGHT_MOTOR, MotorType.kBrushless); //WPI_TalonSRX(MASTER_RIGHT_MOTOR);
+      //rightMotorSlave1 = new CANSparkMax(SLAVE1_RIGHT_MOTOR, MotorType.kBrushless); //WPI_TalonSRX(SLAVE1_RIGHT_MOTOR);
+      //rightMotorSlave2 = new CANSparkMax(SLAVE2_RIGHT_MOTOR, MotorType.kBrushless); //WPI_TalonSRX(SLAVE2_RIGHT_MOTOR);
+      rightMotorMaster = new WPI_TalonFX(MASTER_RIGHT_MOTOR);
+      rightMotorSlave1 = new WPI_TalonFX(SLAVE1_RIGHT_MOTOR);
       rightMotorGroup = new SpeedControllerGroup(rightMotorMaster, rightMotorSlave1);
     
       //Initialize robot drive train
       westCoastDrive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
 
       //Set all talons to brake mode
-      leftMotorMaster.setNeutralMode(NeutralMode.Brake);
-      leftMotorSlave1.setNeutralMode(NeutralMode.Brake);
-      rightMotorMaster.setNeutralMode(NeutralMode.Brake);
-      rightMotorSlave1.setNeutralMode(NeutralMode.Brake);
+      //leftMotorMaster.setIdleMode(IdleMode.kBrake);
+      //leftMotorSlave1.setIdleMode(IdleMode.kBrake);
+      //leftMotorSlave2.setIdleMode(IdleMode.kBrake);
+      //rightMotorMaster.setIdleMode(IdleMode.kBrake);
+      //rightMotorSlave1.setIdleMode(IdleMode.kBrake);
+      //rightMotorSlave2.setIdleMode(IdleMode.kBrake);
+
+    } else {
+
+      // //Initialize left side motors
+      // leftMotorMaster = new WPI_TalonSRX(TMD_MASTER_LEFT_MOTOR);
+      // leftMotorSlave1 = new WPI_TalonSRX(TMD_SLAVE_LEFT_MOTOR);
+      // leftMotorGroup = new SpeedControllerGroup(leftMotorMaster, leftMotorSlave1);
+    
+      // //Initialize right side motors
+      // rightMotorMaster = new WPI_TalonSRX(TMD_MASTER_RIGHT_MOTOR);
+      // rightMotorSlave1 = new WPI_TalonSRX(TMD_SLAVE_RIGHT_MOTOR);
+      // rightMotorGroup = new SpeedControllerGroup(rightMotorMaster, rightMotorSlave1);
+    
+      // //Initialize robot drive train
+      // westCoastDrive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
+
+      // //Set all talons to brake mode
+      // leftMotorMaster.setNeutralMode(NeutralMode.Brake);
+      // leftMotorSlave1.setNeutralMode(NeutralMode.Brake);
+      // rightMotorMaster.setNeutralMode(NeutralMode.Brake);
+      // rightMotorSlave1.setNeutralMode(NeutralMode.Brake);
 
 
     }
@@ -173,12 +191,12 @@ public class WestCoastDrivetrain extends SubsystemBase {
 
   public int getLeftEncoder(){
 
-    return leftMotorMaster.getSelectedSensorPosition();
+    return 0;//leftMotorMaster.getSelectedSensorPosition();
   }
 
   public int getRightEncoder(){
 
-    return rightMotorMaster.getSelectedSensorPosition();
+    return 0;//rightMotorMaster.getSelectedSensorPosition();
   }
 
   public double getGyroAngle(){
@@ -188,8 +206,8 @@ public class WestCoastDrivetrain extends SubsystemBase {
 
   public void zeroEncoders(){
 
-    leftMotorMaster.setSelectedSensorPosition(0);
-    rightMotorMaster.setSelectedSensorPosition(0);
+    //leftMotorMaster.setSelectedSensorPosition(0);
+    //rightMotorMaster.setSelectedSensorPosition(0);
   }
 
   public void zeroGyro(){

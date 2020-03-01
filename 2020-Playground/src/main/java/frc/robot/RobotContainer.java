@@ -90,7 +90,7 @@ public class RobotContainer {
     xbox = new XboxController(XBOX_PORT);
 
     //Set default drivetrain command to DriveWithJoysticks or xbox
-    //drivetrain.setDefaultCommand(xboxCommand);
+    drivetrain.setDefaultCommand(xboxCommand);
     
     //For testing purposes, this will control simple one- or two-motor subsystems.
     //genericSubsystem.setDefaultCommand(genericJoysticksCommand);
